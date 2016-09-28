@@ -8,9 +8,12 @@
          PROCEDURE DIVISION.
          MAIN-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
-             DISPLAY "*******************************************" AT LINE 3 COL 15.
-             DISPLAY "     HUMAN RESOURCE MANAGEMENT SYSTEM      " AT LINE 5 COL 15.
-             DISPLAY "*******************************************" AT LINE 7 COL 15.
+             DISPLAY "*******************************************"
+               AT LINE 3 COL 15.
+             DISPLAY "     HUMAN RESOURCE MANAGEMENT SYSTEM      "
+               AT LINE 5 COL 15.
+             DISPLAY "*******************************************"
+               AT LINE 7 COL 15.
              DISPLAY "1. HRMS WRITE" AT LINE 10 COL 25.
              DISPLAY "2. HRMS READ" AT LINE 12 COL 25.
              DISPLAY "3. EXIT" AT LINE 14 COL 25.
@@ -282,9 +285,12 @@
          PROCEDURE DIVISION.
          MAIN-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
-             DISPLAY "*******************************************" AT LINE 3 COL 10.
-             DISPLAY "     HUMAN RESOURCE MANAGEMENT SYSTEM      " AT LINE 5 COL 10.
-             DISPLAY "*******************************************" AT LINE 7 COL 10.
+             DISPLAY "*******************************************"
+               AT LINE 3 COL 10.
+             DISPLAY "     HUMAN RESOURCE MANAGEMENT SYSTEM      "
+               AT LINE 5 COL 10.
+             DISPLAY "*******************************************"
+               AT LINE 7 COL 10.
              DISPLAY " 1. EMPLOYEE FILE" AT LINE 11 COL 5.
              DISPLAY " 2. LEAVE FILE" AT LINE 12 COL 5.
              DISPLAY " 3. BRANCH FILE" AT LINE 13 COL 5.
@@ -350,13 +356,12 @@
              DISPLAY " UG                   :" EUG AT LINE 7 COL 1.
              DISPLAY " PG                   :" EPG AT LINE 8 COL 1.
              DISPLAY " PROFESSIONAL QUALITY :" EPROFQ AT LINE 9 COL 1.
-             DISPLAY(10 1)" SKILL SET            :" ESKILL.
-             DISPLAY(11 1)" GRADE NUMBER         :" EGRDNO.
-             DISPLAY(12 1)" BRANCH CODE          :" EBRNID.
-             DISPLAY(13 1)" DESIGNATION CODE     :" EDESID.
+             DISPLAY " SKILL SET            :" ESKILL AT LINE 10 COL 1.
+             DISPLAY " GRADE NUMBER         :" EGRDNO AT LINE 11 COL 1.
+             DISPLAY " BRANCH CODE          :" EBRNID AT LINE 12 COL 1.
+             DISPLAY" DESIGNATION CODE     :" EDESID AT LINE 13 COL 1.
              CLOSE EMPFILE.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -372,8 +377,7 @@
              DISPLAY " DATE           :" LTODATE AT LINE 3 COL 1.
              DISPLAY " LEAVE CATEGORY :" LLEVCAT AT LINE 4 COL 1.
              CLOSE LEAVEFILE.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -391,8 +395,7 @@
              DISPLAY " E-MAIL         :" BEMAIL  AT LINE 5 COL 1.
              DISPLAY " MANAGER NAME   :" BMGRNAME AT LINE 5 COL 1.
              CLOSE BRANCHFILE.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -406,8 +409,8 @@
          DES-READ-PARA.
              READ DESIGNATIONFILE AT END GO TO DES-EXIT-PARA.
              IF DESID = DES
-             DISPLAY(1 1) " DESIGNATION CODE     :" DESID
-             DISPLAY(2 1) " DESIGNATION          :" DESIGN
+             DISPLAY " DESIGNATION CODE     :" DESID AT LINE 1 COL 1.
+             DISPLAY " DESIGNATION          :" DESIGN AT LINE 2 COL 1.
              DISPLAY " DESIGNATION IN SHORT :" DESHRT AT LINE 3 COL 1.
          DES-EXIT-PARA.
              CLOSE DESIGNATIONFILE.
@@ -428,8 +431,7 @@
              DISPLAY " DEPARTMENT CODE :" DEPCODE AT LINE 1 COL 1.
              DISPLAY " DEPARTMENT NAME :" DEPNAME AT LINE 2 COL 1.
              CLOSE DEPARTMENTFILE.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -443,23 +445,29 @@
                       GO TO ERROR-REVISION-PARA.
              DISPLAY " REVISION CODE           :" RREVID AT LINE 1 COL 1.
              DISPLAY " EMPLOYEE CODE           :" REMPID AT LINE 2 COL 1.
-             DISPLAY " DESIGNATION CODE        :" RDESCODE AT LINE 3 COL 1.
+             DISPLAY " DESIGNATION CODE        :"
+               RDESCODE AT LINE 3 COL 1.
              DISPLAY " BASIC                   :" RBASIC AT LINE 4 COL 1.
              DISPLAY " HRA                     :" RHRA AT LINE 5 COL 1.
              DISPLAY " DPA                     :" RDPA AT LINE 6 COL 1.
              DISPLAY " PPA                     :" RPPA AT LINE 7 COL 1.
              DISPLAY " EDUCATIONAL ALLOWANCE   :" REDUA AT LINE 8 COL 1.
-             DISPLAY " TECHNICAL JOURNAL       :" RTECHJR AT LINE 9 COL 1.
-             DISPLAY " LUNCH ALLOWANCE        :" RLUNCHA AT LINE 10 COL 1.
-             DISPLAY " CONVEYANCE             :" RCONVEY AT LINE 11 COL 1.
-             DISPLAY " BUSINESS ATTIREMENT    :" RBUSATR AT LINE 12 COL 1.
-             DISPLAY " LEAVE TRAVEL ALLOWANCE :" RLTA AT LINE 13 COL 1.
+             DISPLAY " TECHNICAL JOURNAL       :"
+               RTECHJR AT LINE 9 COL 1.
+             DISPLAY " LUNCH ALLOWANCE        :"
+               RLUNCHA AT LINE 10 COL 1.
+             DISPLAY " CONVEYANCE             :"
+               RCONVEY AT LINE 11 COL 1.
+             DISPLAY " BUSINESS ATTIREMENT    :"
+               RBUSATR AT LINE 12 COL 1.
+             DISPLAY " LEAVE TRAVEL ALLOWANCE :"
+               RLTA AT LINE 13 COL 1.
              DISPLAY " PF                     :" RPF AT LINE 14 COL 1.
              DISPLAY " ESI                    :" RESI AT LINE 15 COL 1.
-             DISPLAY " REVISED DATE           :" RREVDATE AT LINE 16 COL 1.
+             DISPLAY " REVISED DATE           :" RREVDATE
+               AT LINE 16 COL 1.
              CLOSE REVISIONFILE.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -470,45 +478,79 @@
              ACCEPT PEMPID.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              READ PAYMENTFILE INVALID KEY GO TO ERROR-PAYMENT-PARA.
-             DISPLAY " EMPLOYEE CODE                  :" PEMPID AT LINE 1 COL 1.
-             DISPLAY " BASIC                          :" PBASIC AT LINE 2 COL 1.
-             DISPLAY " DEARNESS ALLOWANCE             :" PDA AT LINE 3 COL 1.
-             DISPLAY " CITY COMPENSATORY ALLOWANCE    :" PCCA AT LINE 4 COL 1.
-             DISPLAY " HRA                            :" PHRA AT LINE 5 COL 1.
-             DISPLAY " DPA                            :" PDPA AT LINE 6 COL 1.
-             DISPLAY " PPA                            :" PPPA AT LINE 7 COL 1.
-             DISPLAY " EDUCATIONAL ALLOWANCE          :" PEDUA AT LINE 8 COL 1.
-             DISPLAY " TECHNICAL JOURNAL              :" PTECHJR AT LINE 9 COL 1.
-             DISPLAY " LUNCH ALLOWANCE               :" PLUNCHA AT LINE 10 COL 1.
-             DISPLAY " CONVEYANCE                    :" PCONVEY AT LINE 11 COL 1.
-             DISPLAY " BUSINESS ATTIREMENT           :" PBUSATR AT LINE 12 COL 1.
-             DISPLAY " LEAVE TRAVEL ALLOWANCE        :" PLTA AT LINE 13 COL 1.
-             DISPLAY " PF                            :" PPF AT LINE 14 COL 1.
-             DISPLAY " ESI                           :" PESI AT LINE 15 COL 1.
-             DISPLAY " GRATUITY                      :" PGRTY AT LINE 16 COL 1.
-             DISPLAY " PROFESSIONAL TAX              :" PPTAX AT LINE 17 COL 1.
-             DISPLAY " INCOME TAX                    :" PITAX AT LINE 18 COL 1.
-             DISPLAY " LOAN                          :" PLOAN AT LINE 19 COL 1.
-             DISPLAY " LOAN DEDUCTION AMOUNT         :" PLOANDA AT LINE 20 COL 1.
-             DISPLAY " OTHER DEDUCTION               :" POTHERD AT LINE 21 COL 1.
-             DISPLAY " PERFORMANCE INCENTIVE         :" PPERINC AT LINE 22 COL 1.
-             DISPLAY " MEDICAL REIMBURSEMENT         :" PMEDI AT LINE 23 COL 1.
-             DISPLAY " BOOK REIMBURSEMENT            :" PBOOK AT LINE 24 COL 1.
+             DISPLAY " EMPLOYEE CODE                  :" PEMPID
+               AT LINE 1 COL 1.
+             DISPLAY " BASIC                          :" PBASIC
+               AT LINE 2 COL 1.
+             DISPLAY " DEARNESS ALLOWANCE             :" PDA
+               AT LINE 3 COL 1.
+             DISPLAY " CITY COMPENSATORY ALLOWANCE    :" PCCA
+               AT LINE 4 COL 1.
+             DISPLAY " HRA                            :" PHRA
+               AT LINE 5 COL 1.
+             DISPLAY " DPA                            :" PDPA
+               AT LINE 6 COL 1.
+             DISPLAY " PPA                            :" PPPA
+               AT LINE 7 COL 1.
+             DISPLAY " EDUCATIONAL ALLOWANCE          :" PEDUA
+               AT LINE 8 COL 1.
+             DISPLAY " TECHNICAL JOURNAL              :" PTECHJR
+               AT LINE 9 COL 1.
+             DISPLAY " LUNCH ALLOWANCE               :" PLUNCHA
+               AT LINE 10 COL 1.
+             DISPLAY " CONVEYANCE                    :" PCONVEY
+               AT LINE 11 COL 1.
+             DISPLAY " BUSINESS ATTIREMENT           :" PBUSATR
+               AT LINE 12 COL 1.
+             DISPLAY " LEAVE TRAVEL ALLOWANCE        :" PLTA
+               AT LINE 13 COL 1.
+             DISPLAY " PF                            :" PPF
+               AT LINE 14 COL 1.
+             DISPLAY " ESI                           :" PESI
+               AT LINE 15 COL 1.
+             DISPLAY " GRATUITY                      :" PGRTY
+               AT LINE 16 COL 1.
+             DISPLAY " PROFESSIONAL TAX              :" PPTAX
+               AT LINE 17 COL 1.
+             DISPLAY " INCOME TAX                    :" PITAX
+               AT LINE 18 COL 1.
+             DISPLAY " LOAN                          :" PLOAN
+               AT LINE 19 COL 1.
+             DISPLAY " LOAN DEDUCTION AMOUNT         :" PLOANDA
+               AT LINE 20 COL 1.
+             DISPLAY " OTHER DEDUCTION               :" POTHERD
+               AT LINE 21 COL 1.
+             DISPLAY " PERFORMANCE INCENTIVE         :" PPERINC
+               AT LINE 22 COL 1.
+             DISPLAY " MEDICAL REIMBURSEMENT         :" PMEDI
+               AT LINE 23 COL 1.
+             DISPLAY " BOOK REIMBURSEMENT            :" PBOOK
+               AT LINE 24 COL 1.
              *>DISPLAY ERASE AT LINE 1 COL 1.
-             DISPLAY " ENTERTAINMENT                  :" PENTER AT LINE 1 COL 1.
-             DISPLAY " PHONE                          :" PTPH AT LINE 2 COL 1.
-             DISPLAY " HOUSE RELATED                  :" PHOUSE AT LINE 3 COL 1.
-             DISPLAY " VEHICLE MAINTENANCE            :" PVEHMAN AT LINE 4 COL 1.
-             DISPLAY " CREDIT CARD                    :" PCREDIT AT LINE 5 COL 1.
-             DISPLAY " CLUB                           :" PCLUB AT LINE 6 COL 1.
-             DISPLAY " CASUAL LEAVE                   :" PCL AT LINE 7 COL 1.
-             DISPLAY " SICK LEAVE                     :" PSL AT LINE 8 COL 1.
-             DISPLAY(9 1) " PAID LEAVE                     :" PPL
-             DISPLAY " LEAVE LOSS OF PAY             :" PLLOP AT LINE 10 COL 1.
-             DISPLAY " OTHER LEAVES                  :" POTHERL AT LINE 11 COL 1.
+             DISPLAY " ENTERTAINMENT                  :" PENTER
+               AT LINE 1 COL 1.
+             DISPLAY " PHONE                          :" PTPH
+               AT LINE 2 COL 1.
+             DISPLAY " HOUSE RELATED                  :" PHOUSE
+               AT LINE 3 COL 1.
+             DISPLAY " VEHICLE MAINTENANCE            :" PVEHMAN
+               AT LINE 4 COL 1.
+             DISPLAY " CREDIT CARD                    :" PCREDIT
+               AT LINE 5 COL 1.
+             DISPLAY " CLUB                           :" PCLUB
+               AT LINE 6 COL 1.
+             DISPLAY " CASUAL LEAVE                   :" PCL
+               AT LINE 7 COL 1.
+             DISPLAY " SICK LEAVE                     :" PSL
+               AT LINE 8 COL 1.
+             DISPLAY " PAID LEAVE                     :" PPL
+               AT LINE 9 COL 1.
+             DISPLAY " LEAVE LOSS OF PAY             :" PLLOP
+               AT LINE 10 COL 1.
+             DISPLAY " OTHER LEAVES                  :" POTHERL
+               AT LINE 11 COL 1.
              CLOSE PAYMENTFILE.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -524,8 +566,7 @@
              DISPLAY " EMPLOYEE CODE     :" CEMPID AT LINE 2 COL 1.
              DISPLAY " CONFIRMATION DATE :" CCDATE AT LINE 3 COL 1.
              CLOSE CONFIRMATIONFILE.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -561,8 +602,7 @@
              DISPLAY " OLD BRANCH CODE   :" TOBRID AT LINE 3 COL 1.
              DISPLAY " TRANSFER DATE     :" TTRFDT AT LINE 4 COL 1.
              CLOSE TRANSFERFILE.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -592,8 +632,7 @@
              DISPLAY " CHILD NAME       :" EPCHILD AT LINE 16 COL 1.
              DISPLAY " DOB OF CHILD     :" EPDOBC AT LINE 17 COL 1.
              CLOSE EMPPERSONALFILE.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -601,8 +640,7 @@
              CLOSE EMPFILE.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -610,8 +648,7 @@
              CLOSE LEAVEFILE.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -619,8 +656,7 @@
              CLOSE BRANCHFILE.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -628,8 +664,7 @@
              CLOSE DEPARTMENTFILE.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -637,8 +672,7 @@
              CLOSE REVISIONFILE.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -646,8 +680,7 @@
              CLOSE PAYMENTFILE.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -655,8 +688,7 @@
              CLOSE CONFIRMATIONFILE.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -664,8 +696,7 @@
              CLOSE TRANSFERFILE.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
 
@@ -673,8 +704,7 @@
              CLOSE EMPPERSONALFILE.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY(20 10)
-               "PRESS ENTER TO RETURN TO HRMS READ MENU".
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
              STOP ' '.
              GO TO MAIN-PARA.
        END PROGRAM EMPREAD.
@@ -930,9 +960,12 @@
          PROCEDURE DIVISION.
          MAIN-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
-             DISPLAY "*******************************************" AT LINE 3 COL 10.
-             DISPLAY "     HUMAN RESOURCE MANAGEMENT SYSTEM      " AT LINE 5 COL 10.
-             DISPLAY "*******************************************" AT LINE 7 COL 10.
+             DISPLAY "*******************************************"
+               AT LINE 3 COL 10.
+             DISPLAY "     HUMAN RESOURCE MANAGEMENT SYSTEM      "
+               AT LINE 5 COL 10.
+             DISPLAY "*******************************************"
+               AT LINE 7 COL 10.
              DISPLAY " 1. EMPLOYEE FILE" AT LINE 11 COL 5.
              DISPLAY " 2. LEAVE FILE" AT LINE 12 COL 5.
              DISPLAY " 3. BRANCH FILE" AT LINE 13 COL 5.
