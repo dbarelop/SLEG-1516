@@ -301,15 +301,15 @@
                AT LINE 5 COL 10.
              DISPLAY "*******************************************"
                AT LINE 7 COL 10.
-             DISPLAY " 1. EMPLOYEE FILE" AT LINE 11 COL 5.
-             DISPLAY " 2. LEAVE FILE" AT LINE 12 COL 5.
-             DISPLAY " 3. BRANCH FILE" AT LINE 13 COL 5.
-             DISPLAY " 4. DESIGNATION FILE" AT LINE 14 COL 5.
-             DISPLAY " 5. DEPARTMENT FILE" AT LINE 15 COL 5.
-             DISPLAY " 6. REVISION FILE" AT LINE 16 COL 5.
-             DISPLAY " 7. PAYMENT FILE" AT LINE 17 COL 5.
-             DISPLAY " 8. CONFIRMATION FILE" AT LINE 18 COL 5.
-             DISPLAY " 9. GRADE FILE" AT LINE 19 COL 5.
+             DISPLAY "01. EMPLOYEE FILE" AT LINE 11 COL 5.
+             DISPLAY "02. LEAVE FILE" AT LINE 12 COL 5.
+             DISPLAY "03. BRANCH FILE" AT LINE 13 COL 5.
+             DISPLAY "04. DESIGNATION FILE" AT LINE 14 COL 5.
+             DISPLAY "05. DEPARTMENT FILE" AT LINE 15 COL 5.
+             DISPLAY "06. REVISION FILE" AT LINE 16 COL 5.
+             DISPLAY "07. PAYMENT FILE" AT LINE 17 COL 5.
+             DISPLAY "08. CONFIRMATION FILE" AT LINE 18 COL 5.
+             DISPLAY "09. GRADE FILE" AT LINE 19 COL 5.
              DISPLAY "10. TRANSFER FILE" AT LINE 20 COL 5.
              DISPLAY "11. EMPLOYEE PERSONAL FILE" AT LINE 21 COL 5.
              DISPLAY "12. EXIT" AT LINE 22 COL 5.
@@ -1013,15 +1013,15 @@
                AT LINE 5 COL 10.
              DISPLAY "*******************************************"
                AT LINE 7 COL 10.
-             DISPLAY " 1. EMPLOYEE FILE" AT LINE 11 COL 5.
-             DISPLAY " 2. LEAVE FILE" AT LINE 12 COL 5.
-             DISPLAY " 3. BRANCH FILE" AT LINE 13 COL 5.
-             DISPLAY " 4. DESIGNATION FILE" AT LINE 14 COL 5.
-             DISPLAY " 5. DEPARTMENT FILE" AT LINE 15 COL 5.
-             DISPLAY " 6. REVISION FILE" AT LINE 16 COL 5.
-             DISPLAY " 7. PAYMENT FILE" AT LINE 17 COL 5.
-             DISPLAY " 8. CONFIRMATION FILE" AT LINE 18 COL 5.
-             DISPLAY " 9. GRADE FILE" AT LINE 19 COL 5.
+             DISPLAY "01. EMPLOYEE FILE" AT LINE 11 COL 5.
+             DISPLAY "02. LEAVE FILE" AT LINE 12 COL 5.
+             DISPLAY "03. BRANCH FILE" AT LINE 13 COL 5.
+             DISPLAY "04. DESIGNATION FILE" AT LINE 14 COL 5.
+             DISPLAY "05. DEPARTMENT FILE" AT LINE 15 COL 5.
+             DISPLAY "06. REVISION FILE" AT LINE 16 COL 5.
+             DISPLAY "07. PAYMENT FILE" AT LINE 17 COL 5.
+             DISPLAY "08. CONFIRMATION FILE" AT LINE 18 COL 5.
+             DISPLAY "09. GRADE FILE" AT LINE 19 COL 5.
              DISPLAY "10. TRANSFER FILE" AT LINE 20 COL 5.
              DISPLAY "11. EMPLOYEE PERSONAL FILE" AT LINE 21 COL 5.
              DISPLAY "12. EXIT" AT LINE 22 COL 5.
@@ -1066,7 +1066,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O EMPFILE.
-             IF FSO = 30
+             *>IF FSO = 30
+             IF FSO <> 00
                 OPEN OUTPUT EMPFILE.
              DISPLAY "ENTER CODE :" AT LINE 1 COL 1.
              ACCEPT EEMPID AT LINE 1 COL 35.
@@ -1102,7 +1103,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O LEAVEFILE.
-             IF FSL = 30
+             *>IF FSL = 30
+             IF FSL <> 00
                 OPEN OUTPUT LEAVEFILE.
              DISPLAY "ENTER CODE :" AT LINE 1 COL 1.
              ACCEPT LEMPID AT LINE 1 COL 35.
@@ -1120,7 +1122,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O BRANCHFILE.
-             IF FSL = 30
+             *>IF FSL = 30
+             IF FSL <> 00
                 OPEN OUTPUT BRANCHFILE.
              DISPLAY "ENTER BRANCH CODE :" AT LINE 1 COL 1.
              ACCEPT BBRID AT LINE 1 COL 35.
@@ -1156,7 +1159,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O DEPARTMENTFILE.
-             IF FSDEP = 30
+             *>IF FSDEP = 30
+             IF FSDEP <> 00
                 OPEN OUTPUT DEPARTMENTFILE.
              DISPLAY "ENTER DEPARTMENT CODE :" AT LINE 1 COL 1.
              ACCEPT DEPCODE AT LINE 1 COL 35.
@@ -1170,7 +1174,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O REVISIONFILE.
-             IF FSR = 30
+             *>IF FSR = 30
+             IF FSR <> 00
                 OPEN OUTPUT REVISIONFILE.
              DISPLAY "ENTER REVISION CODE :" AT LINE 1 COL 1.
              ACCEPT RREVID AT LINE 1 COL 35.
@@ -1212,7 +1217,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O PAYMENTFILE.
-             IF FSP = 30
+             *>IF FSP = 30
+             IF FSP <> 00
                 OPEN OUTPUT PAYMENTFILE.
              DISPLAY "ENTER EMPLOYEE CODE :" AT LINE 1 COL 1.
              ACCEPT PEMPID AT LINE 1 COL 35.
@@ -1298,7 +1304,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O CONFIRMATIONFILE.
-             IF FSC = 30
+             *>IF FSC = 30
+             IF FSC <> 00
                 OPEN OUTPUT CONFIRMATIONFILE.
              DISPLAY "ENTER CONFIRMATION CODE :" AT LINE 1 COL 1.
              ACCEPT CCONID AT LINE 1 COL 35.
@@ -1326,7 +1333,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O TRANSFERFILE.
-             IF FST = 30
+             *>IF FST = 30
+             IF FST <> 00
                 OPEN OUTPUT TRANSFERFILE.
              DISPLAY "ENTER TRANSFER CODE :" AT LINE 1 COL 1.
              ACCEPT TTRFID AT LINE 1 COL 35.
@@ -1344,7 +1352,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O EMPPERSONALFILE.
-             IF FSEP = 30
+             *>IF FSEP = 30
+             IF FSEP <> 00
                 OPEN OUTPUT EMPPERSONALFILE.
              DISPLAY "ENTER EMP CODE :" AT LINE 1 COL 1.
              ACCEPT EPEMPID AT LINE 1 COL 35.
