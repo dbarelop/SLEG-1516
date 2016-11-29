@@ -44,70 +44,70 @@
          INPUT-OUTPUT SECTION.
          FILE-CONTROL.
              SELECT EMPFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS EEMPID
-             FILE STATUS IS FSE.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS EEMPID
+                 FILE STATUS IS FSE.
 
              SELECT LEAVEFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS LEMPID
-             FILE STATUS IS FSL.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS LEMPID
+                 FILE STATUS IS FSL.
 
              SELECT BRANCHFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS BBRID
-             FILE STATUS IS FSB.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS BBRID
+                 FILE STATUS IS FSB.
 
              SELECT DESIGNATIONFILE ASSIGN TO DISK
-             ORGANIZATION IS SEQUENTIAL
-             ACCESS MODE IS SEQUENTIAL
-             FILE STATUS IS FSDES.
+                 ORGANIZATION IS SEQUENTIAL
+                 ACCESS MODE IS SEQUENTIAL
+                 FILE STATUS IS FSDES.
 
              SELECT DEPARTMENTFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS DEPCODE
-             FILE STATUS IS FSDEP.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS DEPCODE
+                 FILE STATUS IS FSDEP.
 
              SELECT REVISIONFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS RREVID
-             ALTERNATE RECORD KEY IS REMPID
-             FILE STATUS IS FSR.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS RREVID
+                 ALTERNATE RECORD KEY IS REMPID
+                 FILE STATUS IS FSR.
 
              SELECT PAYMENTFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS PEMPID
-             FILE STATUS IS FSP.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS PEMPID
+                 FILE STATUS IS FSP.
 
              SELECT CONFIRMATIONFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS CCONID
-             ALTERNATE RECORD KEY IS CEMPID
-             FILE STATUS IS FSC.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS CCONID
+                 ALTERNATE RECORD KEY IS CEMPID
+                 FILE STATUS IS FSC.
 
              SELECT GRADEFILE ASSIGN TO DISK
-             ORGANIZATION IS SEQUENTIAL
-             ACCESS MODE IS SEQUENTIAL
-             FILE STATUS IS FSG.
+                 ORGANIZATION IS SEQUENTIAL
+                 ACCESS MODE IS SEQUENTIAL
+                 FILE STATUS IS FSG.
 
              SELECT TRANSFERFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS TTRFID
-             FILE STATUS IS FST.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS TTRFID
+                 FILE STATUS IS FST.
 
              SELECT EMPPERSONALFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS EPEMPID
-             FILE STATUS IS FSEP.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS EPEMPID
+                 FILE STATUS IS FSEP.
 
          DATA DIVISION.
          FILE SECTION.
@@ -752,76 +752,76 @@
        END PROGRAM EMPREAD.
 
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. EMP.
+       PROGRAM-ID. EMPWRITE.
 
          ENVIRONMENT DIVISION.
          INPUT-OUTPUT SECTION.
          FILE-CONTROL.
              SELECT EMPFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS EEMPID
-             FILE STATUS IS FSO.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS EEMPID
+                 FILE STATUS IS FSO.
 
              SELECT LEAVEFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS LEMPID
-             FILE STATUS IS FSL.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS LEMPID
+                 FILE STATUS IS FSL.
 
              SELECT BRANCHFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS BBRID
-             FILE STATUS IS FSB.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS BBRID
+                 FILE STATUS IS FSB.
 
              SELECT DESIGNATIONFILE ASSIGN TO DISK
-             ORGANIZATION IS SEQUENTIAL
-             ACCESS MODE IS SEQUENTIAL
-             FILE STATUS IS FSDES.
+                 ORGANIZATION IS SEQUENTIAL
+                 ACCESS MODE IS SEQUENTIAL
+                 FILE STATUS IS FSDES.
 
              SELECT DEPARTMENTFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS DEPCODE
-             FILE STATUS IS FSDEP.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS DEPCODE
+                 FILE STATUS IS FSDEP.
 
              SELECT REVISIONFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS RREVID
-             ALTERNATE RECORD KEY IS REMPID
-             FILE STATUS IS FSR.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS RREVID
+                 ALTERNATE RECORD KEY IS REMPID
+                 FILE STATUS IS FSR.
 
              SELECT PAYMENTFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS PEMPID
-             FILE STATUS IS FSP.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS PEMPID
+                 FILE STATUS IS FSP.
 
              SELECT CONFIRMATIONFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS CCONID
-             ALTERNATE RECORD KEY IS CEMPID
-             FILE STATUS IS FSC.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS CCONID
+                 ALTERNATE RECORD KEY IS CEMPID
+                 FILE STATUS IS FSC.
 
              SELECT GRADEFILE ASSIGN TO DISK
-             ORGANIZATION IS SEQUENTIAL
-             ACCESS MODE IS SEQUENTIAL
-             FILE STATUS IS FSG.
+                 ORGANIZATION IS SEQUENTIAL
+                 ACCESS MODE IS SEQUENTIAL
+                 FILE STATUS IS FSG.
 
              SELECT TRANSFERFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS TTRFID
-             FILE STATUS IS FST.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS TTRFID
+                 FILE STATUS IS FST.
 
              SELECT EMPPERSONALFILE ASSIGN TO DISK
-             ORGANIZATION IS INDEXED
-             ACCESS MODE IS DYNAMIC
-             RECORD KEY IS EPEMPID
-             FILE STATUS IS FSEP.
+                 ORGANIZATION IS INDEXED
+                 ACCESS MODE IS DYNAMIC
+                 RECORD KEY IS EPEMPID
+                 FILE STATUS IS FSEP.
 
          DATA DIVISION.
          FILE SECTION.
@@ -1383,5 +1383,5 @@
              WRITE EMPPERSONALREC.
              CLOSE EMPPERSONALFILE.
              GO TO MAIN-PARA.
-       END PROGRAM EMP.
+       END PROGRAM EMPWRITE.
 
