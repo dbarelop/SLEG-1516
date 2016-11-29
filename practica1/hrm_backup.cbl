@@ -286,6 +286,7 @@
          77 DES   PIC X(6).
          77 GR    PIC 99.
          77 CHOICE PIC 99.
+         77 OMIT PIC 99.
 
          SCREEN SECTION.
          01 ERASE-1.
@@ -354,8 +355,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT EMPFILE.
-             DISPLAY "ENTER CODE :".
-             ACCEPT EEMPID.
+             DISPLAY "ENTER CODE :" AT LINE 23 COL 25.
+             ACCEPT EEMPID AT LINE 23 COL 38.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ EMPFILE INVALID KEY GO TO ERROR-EMP-PARA.
@@ -373,16 +374,17 @@
              DISPLAY " BRANCH CODE          :" EBRNID AT LINE 12 COL 1.
              DISPLAY" DESIGNATION CODE     :" EDESID AT LINE 13 COL 1.
              CLOSE EMPFILE.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          LEAVE-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT LEAVEFILE.
-             DISPLAY "ENTER CODE :".
-             ACCEPT LEMPID.
+             DISPLAY "ENTER CODE :" AT LINE 23 COL 25.
+             ACCEPT LEMPID AT LINE 23 COL 38.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ LEAVEFILE INVALID KEY GO TO ERROR-LEAVE-PARA.
@@ -391,16 +393,17 @@
              DISPLAY " DATE           :" LTODATE AT LINE 3 COL 1.
              DISPLAY " LEAVE CATEGORY :" LLEVCAT AT LINE 4 COL 1.
              CLOSE LEAVEFILE.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
-          BRANCH-PARA.
+         BRANCH-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT BRANCHFILE.
-             DISPLAY " BRANCH CODE :".
-             ACCEPT BBRID.
+             DISPLAY " BRANCH CODE :" AT LINE 23 COL 25.
+             ACCEPT BBRID AT LINE 23 COL 40.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ BRANCHFILE INVALID KEY GO TO ERROR-BRANCH-PARA.
@@ -411,16 +414,17 @@
              DISPLAY " E-MAIL         :" BEMAIL  AT LINE 5 COL 1.
              DISPLAY " MANAGER NAME   :" BMGRNAME AT LINE 5 COL 1.
              CLOSE BRANCHFILE.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          DESIGNATION-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT DESIGNATIONFILE.
-             DISPLAY "ENTER THE DESIGNATION CODE :".
-             ACCEPT DES.
+             DISPLAY "ENTER THE DESIGNATION CODE :" AT LINE 23 COL 25.
+             ACCEPT DES AT LINE 23 COL 54.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              PERFORM DES-READ-PARA UNTIL FSDES = 10.
@@ -434,16 +438,17 @@
              CLOSE DESIGNATIONFILE.
              DISPLAY ' '.
              DISPLAY ' '.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU".
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU"
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          DEPARTMENT-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT DEPARTMENTFILE.
-             DISPLAY "ENTER DEP CODE :".
-             ACCEPT DEPCODE.
+             DISPLAY "ENTER DEP CODE :" AT LINE 23 COL 25.
+             ACCEPT DEPCODE AT LINE 23 COL 42.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ DEPARTMENTFILE INVALID KEY
@@ -451,16 +456,17 @@
              DISPLAY " DEPARTMENT CODE :" DEPCODE AT LINE 1 COL 1.
              DISPLAY " DEPARTMENT NAME :" DEPNAME AT LINE 2 COL 1.
              CLOSE DEPARTMENTFILE.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          REVISION-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT REVISIONFILE.
-             DISPLAY "ENTER REVISION CODE:".
-             ACCEPT RREVID.
+             DISPLAY "ENTER REVISION CODE:" AT LINE 23 COL 25.
+             ACCEPT RREVID AT LINE 23 COL 46.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ REVISIONFILE INVALID KEY
@@ -489,16 +495,17 @@
              DISPLAY " REVISED DATE           :" RREVDATE
                AT LINE 16 COL 1.
              CLOSE REVISIONFILE.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          PAYMENT-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT PAYMENTFILE.
-             DISPLAY "ENTER EMP CODE :".
-             ACCEPT PEMPID.
+             DISPLAY "ENTER EMP CODE :" AT LINE 23 COL 25.
+             ACCEPT PEMPID AT LINE 23 COL 42.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ PAYMENTFILE INVALID KEY GO TO ERROR-PAYMENT-PARA.
@@ -575,16 +582,17 @@
              DISPLAY " OTHER LEAVES                  :" POTHERL
                AT LINE 11 COL 1.
              CLOSE PAYMENTFILE.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          CONFIRMATION-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT CONFIRMATIONFILE.
-             DISPLAY "ENTER CODE :".
-             ACCEPT CCONID.
+             DISPLAY "ENTER CODE :" AT LINE 23 COL 25.
+             ACCEPT CCONID AT LINE 23 COL 38.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ CONFIRMATIONFILE INVALID KEY
@@ -593,16 +601,17 @@
              DISPLAY " EMPLOYEE CODE     :" CEMPID AT LINE 2 COL 1.
              DISPLAY " CONFIRMATION DATE :" CCDATE AT LINE 3 COL 1.
              CLOSE CONFIRMATIONFILE.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          GRADE-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT GRADEFILE.
-             DISPLAY "ENTER GRADE NO. :".
-             ACCEPT GR.
+             DISPLAY "ENTER GRADE NO. :" AT LINE 23 COL 25.
+             ACCEPT GR AT LINE 23 COL 43.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              PERFORM GR-READ-PARA UNTIL FSG = 10.
@@ -615,16 +624,17 @@
              CLOSE GRADEFILE.
              DISPLAY ' '.
              DISPLAY ' '.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU".
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU"
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          TRANSFER-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT TRANSFERFILE.
-             DISPLAY "ENTER TRANSFER CODE :".
-             ACCEPT TTRFID.
+             DISPLAY "ENTER TRANSFER CODE :" AT LINE 23 COL 25.
+             ACCEPT TTRFID AT LINE 23 COL 47.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ TRANSFERFILE INVALID KEY GO TO ERROR-TRANSFER-PARA.
@@ -633,16 +643,17 @@
              DISPLAY " OLD BRANCH CODE   :" TOBRID AT LINE 3 COL 1.
              DISPLAY " TRANSFER DATE     :" TTRFDT AT LINE 4 COL 1.
              CLOSE TRANSFERFILE.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          EMPPERSONAL-PARA.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT EMPPERSONALFILE.
-             DISPLAY "ENTER EMP CODE :".
-             ACCEPT EPEMPID.
+             DISPLAY "ENTER EMP CODE :" AT LINE 23 COL 25.
+             ACCEPT EPEMPID AT LINE 23 COL 42.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ EMPPERSONALFILE INVALID KEY
@@ -666,7 +677,7 @@
              DISPLAY " DOB OF CHILD     :" EPDOBC AT LINE 17 COL 1.
              CLOSE EMPPERSONALFILE.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          ERROR-EMP-PARA.
@@ -674,8 +685,9 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          ERROR-LEAVE-PARA.
@@ -683,8 +695,9 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          ERROR-BRANCH-PARA.
@@ -692,8 +705,9 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          ERROR-DEPARTMENT-PARA.
@@ -701,8 +715,9 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          ERROR-REVISION-PARA.
@@ -710,8 +725,9 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          ERROR-PAYMENT-PARA.
@@ -719,8 +735,9 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          ERROR-CONFIRMATION-PARA.
@@ -728,8 +745,9 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          ERROR-TRANSFER-PARA.
@@ -737,8 +755,9 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
 
          ERROR-EMPPERSONAL-PARA.
@@ -746,8 +765,9 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
-             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" AT LINE 20 COL 10.
-             STOP ' '.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
+                AT LINE 20 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 10.
              GO TO MAIN-PARA.
        END PROGRAM EMPREAD.
 
