@@ -2,3 +2,4 @@
 *.o
 /practica1/hrm_backup
 /practica1/*.DAT
+/practica1/*.DAT.*
