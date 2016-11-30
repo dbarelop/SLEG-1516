@@ -285,7 +285,9 @@
          77 DES   PIC X(6).
          77 GR    PIC 99.
          77 CHOICE PIC 99.
-         77 OMIT PIC 99.
+         77 OMIT  PIC 99.
+         77 LBCITY PIC X(30).
+         77 LBLINE PIC 99.
 
          SCREEN SECTION.
          01 ERASE-1.
@@ -302,30 +304,32 @@
                AT LINE 7 COL 10.
              DISPLAY "01. EMPLOYEE FILE" AT LINE 11 COL 5.
              DISPLAY "02. LEAVE FILE" AT LINE 12 COL 5.
-             DISPLAY "03. BRANCH FILE" AT LINE 13 COL 5.
-             DISPLAY "04. DESIGNATION FILE" AT LINE 14 COL 5.
-             DISPLAY "05. DEPARTMENT FILE" AT LINE 15 COL 5.
-             DISPLAY "06. REVISION FILE" AT LINE 16 COL 5.
-             DISPLAY "07. PAYMENT FILE" AT LINE 17 COL 5.
-             DISPLAY "08. CONFIRMATION FILE" AT LINE 18 COL 5.
-             DISPLAY "09. GRADE FILE" AT LINE 19 COL 5.
-             DISPLAY "10. TRANSFER FILE" AT LINE 20 COL 5.
-             DISPLAY "11. EMPLOYEE PERSONAL FILE" AT LINE 21 COL 5.
-             DISPLAY "12. EXIT" AT LINE 22 COL 5.
-             DISPLAY "ENTER U R CHOICE :" AT LINE 23 COL 25.
-             ACCEPT CHOICE AT LINE 23 COL 45.
+             DISPLAY "03. LIST BRANCH FILE" AT LINE 13 COL 5.
+             DISPLAY "04. BRANCH FILE" AT LINE 14 COL 5.
+             DISPLAY "05. DESIGNATION FILE" AT LINE 15 COL 5.
+             DISPLAY "06. DEPARTMENT FILE" AT LINE 16 COL 5.
+             DISPLAY "07. REVISION FILE" AT LINE 17 COL 5.
+             DISPLAY "08. PAYMENT FILE" AT LINE 18 COL 5.
+             DISPLAY "09. CONFIRMATION FILE" AT LINE 19 COL 5.
+             DISPLAY "10. GRADE FILE" AT LINE 20 COL 5.
+             DISPLAY "11. TRANSFER FILE" AT LINE 21 COL 5.
+             DISPLAY "12. EMPLOYEE PERSONAL FILE" AT LINE 22 COL 5.
+             DISPLAY "13. EXIT" AT LINE 23 COL 5.
+             DISPLAY "ENTER U R CHOICE :" AT LINE 24 COL 25.
+             ACCEPT CHOICE AT LINE 24 COL 45.
              EVALUATE CHOICE
                 WHEN 1     GO TO EMP-PARA
                 WHEN 2     GO TO LEAVE-PARA
-                WHEN 3     GO TO BRANCH-PARA
-                WHEN 4     GO TO DESIGNATION-PARA
-                WHEN 5     GO TO DEPARTMENT-PARA
-                WHEN 6     GO TO REVISION-PARA
-                WHEN 7     GO TO PAYMENT-PARA
-                WHEN 8     GO TO CONFIRMATION-PARA
-                WHEN 9     GO TO GRADE-PARA
-                WHEN 10    GO TO TRANSFER-PARA
-                WHEN 11    GO TO EMPPERSONAL-PARA
+                WHEN 3     GO TO LIST-BRANCH-PARA
+                WHEN 4     GO TO BRANCH-PARA
+                WHEN 5     GO TO DESIGNATION-PARA
+                WHEN 6     GO TO DEPARTMENT-PARA
+                WHEN 7     GO TO REVISION-PARA
+                WHEN 8     GO TO PAYMENT-PARA
+                WHEN 9     GO TO CONFIRMATION-PARA
+                WHEN 10     GO TO GRADE-PARA
+                WHEN 11    GO TO TRANSFER-PARA
+                WHEN 12    GO TO EMPPERSONAL-PARA
                 WHEN OTHER EXIT PROGRAM.
 
          EMP-PARA.
@@ -386,6 +390,66 @@
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
                 AT LINE 20 COL 10.
              ACCEPT OMIT AT LINE 21 COL 10.
+             GO TO MAIN-PARA.
+
+         LIST-BRANCH-PARA.
+             DISPLAY ERASE-1
+             OPEN INPUT BRANCHFILE.
+             DISPLAY " CITY : " AT LINE 1 COL 1.
+             ACCEPT LBCITY AT LINE 1 COL 8.
+             OPEN INPUT BRANCHFILE.
+             MOVE ' ' TO BBRID.
+             MOVE 1 TO LBLINE.
+             DISPLAY ERASE-1
+             PERFORM UNTIL FSB = 10
+                IF LBCITY = ' '
+                    DISPLAY " BRANCH CODE:    "
+                        AT LINE LBLINE COL 1
+                    DISPLAY BBRID
+                        AT LINE LBLINE COL 17
+                    ADD 1 TO LBLINE
+                    DISPLAY " BRANCH NAME:    "
+                        AT LINE LBLINE COL 1
+                    DISPLAY BBRNAME
+                        AT LINE LBLINE COL 17
+                    ADD 1 TO LBLINE
+                    DISPLAY " BRANCH ADDRESS: "
+                        AT LINE LBLINE COL 1
+                    DISPLAY BBRADD
+                        AT LINE LBLINE COL 17
+                    ADD 1 TO LBLINE
+                    DISPLAY " PHONE:          "
+                        AT LINE LBLINE COL 1
+                    DISPLAY BBRPH
+                        AT LINE LBLINE COL 17
+                    ADD 1 TO LBLINE
+                    DISPLAY " E-MAIL:         "
+                        AT LINE LBLINE COL 1
+                    DISPLAY BEMAIL
+                        AT LINE LBLINE COL 17
+                    ADD 1 TO LBLINE
+                    DISPLAY " MANAGER NAME:   "
+                        AT LINE LBLINE COL 1
+                    DISPLAY BBRNAME
+                        AT LINE LBLINE COL 17
+                    ADD 2 TO LBLINE
+                END-IF
+                READ BRANCHFILE NEXT RECORD
+                    AT END GO TO LIST-BRANCH-EXIT-PARA
+                END-READ
+                IF LBLINE = 22
+                    DISPLAY "PRESS ENTER TO CONTINUE"
+                        AT LINE 21 COL 10
+                    ACCEPT OMIT AT LINE 21 COL 33
+                    DISPLAY ERASE-1
+                    MOVE 1 TO LBLINE
+                END-IF
+             END-PERFORM.
+         LIST-BRANCH-EXIT-PARA.
+             CLOSE BRANCHFILE.
+             DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU"
+                AT LINE 21 COL 10.
+             ACCEPT OMIT AT LINE 21 COL 50.
              GO TO MAIN-PARA.
 
          BRANCH-PARA.
