@@ -23,17 +23,17 @@
              DISPLAY "3. EXIT" AT LINE 14 COL 25.
              DISPLAY "ENTER YOUR CHOICE :" AT LINE 16 COL 25.
              ACCEPT CHOICE AT LINE 16 COL 46.
-             IF CHOICE = 1
-                CALL "EMPWRITE"
-                CANCEL "EMPWRITE"
-                GO TO MAIN-PARA
-             ELSE
-               IF CHOICE = 2
-                  CALL "EMPREAD"
-                  CANCEL "EMPREAD"
-                  GO TO MAIN-PARA
-               ELSE
-                  STOP RUN.
+             EVALUATE CHOICE
+                WHEN 1
+                    CALL "EMPWRITE"
+                    CANCEL "EMPWRITE"
+                    GO TO MAIN-PARA
+                WHEN 2
+                    CALL "EMPREAD"
+                    CANCEL "EMPREAD"
+                    GO TO MAIN-PARA
+                WHEN OTHER
+                    STOP RUN.
        END PROGRAM MAINHRMS.
 
        IDENTIFICATION DIVISION.
@@ -314,40 +314,19 @@
              DISPLAY "12. EXIT" AT LINE 22 COL 5.
              DISPLAY "ENTER U R CHOICE :" AT LINE 23 COL 25.
              ACCEPT CHOICE AT LINE 23 COL 45.
-             IF CHOICE = 1
-                GO TO EMP-PARA
-             ELSE
-               IF CHOICE = 2
-                  GO TO LEAVE-PARA
-               ELSE
-                 IF CHOICE = 3
-                    GO TO BRANCH-PARA
-                 ELSE
-                   IF CHOICE = 4
-                      GO TO DESIGNATION-PARA
-                   ELSE
-                     IF CHOICE = 5
-                        GO TO DEPARTMENT-PARA
-                     ELSE
-                       IF CHOICE = 6
-                          GO TO REVISION-PARA
-                       ELSE
-                         IF CHOICE = 7
-                            GO TO PAYMENT-PARA
-                         ELSE
-                            IF CHOICE = 8
-                               GO TO CONFIRMATION-PARA
-                            ELSE
-                              IF CHOICE = 9
-                                 GO TO GRADE-PARA
-                              ELSE
-                                IF CHOICE = 10
-                                   GO TO TRANSFER-PARA
-                                ELSE
-                                  IF CHOICE = 11
-                                     GO TO EMPPERSONAL-PARA
-                                   ELSE
-                                     EXIT PROGRAM.
+             EVALUATE CHOICE
+                WHEN 1     GO TO EMP-PARA
+                WHEN 2     GO TO LEAVE-PARA
+                WHEN 3     GO TO BRANCH-PARA
+                WHEN 4     GO TO DESIGNATION-PARA
+                WHEN 5     GO TO DEPARTMENT-PARA
+                WHEN 6     GO TO REVISION-PARA
+                WHEN 7     GO TO PAYMENT-PARA
+                WHEN 8     GO TO CONFIRMATION-PARA
+                WHEN 9     GO TO GRADE-PARA
+                WHEN 10    GO TO TRANSFER-PARA
+                WHEN 11    GO TO EMPPERSONAL-PARA
+                WHEN OTHER EXIT PROGRAM.
 
          EMP-PARA.
              DISPLAY ERASE-1
@@ -1114,45 +1093,23 @@
              DISPLAY "12. EXIT" AT LINE 22 COL 5.
              DISPLAY "ENTER U R CHOICE :" AT LINE 23 COL 25.
              ACCEPT CHOICE AT LINE 23 COL 45.
-             IF CHOICE = 1
-                GO TO EMP-PARA
-             ELSE
-               IF CHOICE = 2
-                  GO TO LEAVE-PARA
-               ELSE
-                 IF CHOICE = 3
-                    GO TO BRANCH-PARA
-                 ELSE
-                   IF CHOICE = 4
-                      GO TO DESIGNATION-PARA
-                   ELSE
-                     IF CHOICE = 5
-                        GO TO DEPARTMENT-PARA
-                     ELSE
-                       IF CHOICE = 6
-                          GO TO REVISION-PARA
-                       ELSE
-                         IF CHOICE = 7
-                            GO TO PAYMENT-PARA
-                         ELSE
-                            IF CHOICE = 8
-                               GO TO CONFIRMATION-PARA
-                            ELSE
-                              IF CHOICE = 9
-                                 GO TO GRADE-PARA
-                              ELSE
-                                IF CHOICE = 10
-                                   GO TO TRANSFER-PARA
-                                ELSE
-                                  IF CHOICE = 11
-                                     GO TO EMPPERSONAL-PARA
-                                   ELSE
-                                     EXIT PROGRAM.
+             EVALUATE CHOICE
+                WHEN 1     GO TO EMP-PARA
+                WHEN 2     GO TO LEAVE-PARA
+                WHEN 3     GO TO BRANCH-PARA
+                WHEN 4     GO TO DESIGNATION-PARA
+                WHEN 5     GO TO DEPARTMENT-PARA
+                WHEN 6     GO TO REVISION-PARA
+                WHEN 7     GO TO PAYMENT-PARA
+                WHEN 8     GO TO CONFIRMATION-PARA
+                WHEN 9     GO TO GRADE-PARA
+                WHEN 10    GO TO TRANSFER-PARA
+                WHEN 11    GO TO EMPPERSONAL-PARA
+                WHEN OTHER EXIT PROGRAM.
 
          EMP-PARA.
              DISPLAY ERASE-1
              OPEN I-O EMPFILE.
-             DISPLAY FSO AT LINE 3 COL 1.
              IF FSO <> 00
                 OPEN OUTPUT EMPFILE.
              DISPLAY "ENTER CODE :" AT LINE 1 COL 1.
