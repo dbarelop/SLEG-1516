@@ -450,17 +450,16 @@
              ACCEPT DES AT LINE 23 COL 54.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
-             *> FIXME: nunca se cumple la condición (FSDES = 10 cuando se llega al EOF)
              PERFORM DES-READ-PARA UNTIL FSDES = 10.
          DES-READ-PARA.
              READ DESIGNATIONFILE AT END GO TO DES-EXIT-PARA.
              IF DESID = DES
-             DISPLAY " DESIGNATION CODE     : " AT LINE 1 COL 1.
-             DISPLAY DESID AT LINE 1 COL 25.
-             DISPLAY " DESIGNATION          : " AT LINE 2 COL 1.
-             DISPLAY DESIGN AT LINE 2 COL 25.
-             DISPLAY " DESIGNATION IN SHORT : " AT LINE 3 COL 1.
-             DISPLAY DESHRT AT LINE 3 COL 25.
+	             DISPLAY " DESIGNATION CODE     : " AT LINE 1 COL 1
+	             DISPLAY DESID AT LINE 1 COL 25
+	             DISPLAY " DESIGNATION          : " AT LINE 2 COL 1
+	             DISPLAY DESIGN AT LINE 2 COL 25
+	             DISPLAY " DESIGNATION IN SHORT : " AT LINE 3 COL 1
+	             DISPLAY DESHRT AT LINE 3 COL 25.
          DES-EXIT-PARA.
              CLOSE DESIGNATIONFILE.
              DISPLAY ' '.
@@ -693,15 +692,14 @@
              ACCEPT GR AT LINE 23 COL 43.
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
-             *> FIXME: nunca se cumple la condición (FSDES = 10 cuando se llega al EOF)
              PERFORM GR-READ-PARA UNTIL FSG = 10.
          GR-READ-PARA.
              READ GRADEFILE AT END GO TO GR-EXIT-PARA.
              IF GGRADE = GR
-             DISPLAY " GRADE NO.   :" AT LINE 1 COL 1.
-             DISPLAY GGRADE AT LINE 1 COL 15.
-             DISPLAY " DESIGNATION :" AT LINE 2 COL 1.
-             DISPLAY GDESIGN AT LINE 2 COL 15.
+	             DISPLAY " GRADE NO.   : " AT LINE 1 COL 1
+	             DISPLAY GGRADE AT LINE 1 COL 16
+	             DISPLAY " DESIGNATION : " AT LINE 2 COL 1
+	             DISPLAY GDESIGN AT LINE 2 COL 16.
          GR-EXIT-PARA.
              CLOSE GRADEFILE.
              DISPLAY ' '.
@@ -1190,7 +1188,7 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O EMPFILE.
-             *>IF FSO = 30
+             DISPLAY FSO AT LINE 3 COL 1.
              IF FSO <> 00
                 OPEN OUTPUT EMPFILE.
              DISPLAY "ENTER CODE :" AT LINE 1 COL 1.
@@ -1269,6 +1267,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN EXTEND DESIGNATIONFILE.
+             IF FSDES <> 00
+             	OPEN OUTPUT DESIGNATIONFILE.
              DISPLAY "ENTER DESIGNATION CODE :" AT LINE 1 COL 1.
              ACCEPT DESID AT LINE 1 COL 35.
              DISPLAY "ENTER DESIGNATION :" AT LINE 2 COL 1.
@@ -1445,6 +1445,8 @@
              *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN EXTEND GRADEFILE.
+             IF FSG <> 00
+             	OPEN OUTPUT GRADEFILE.
              DISPLAY "ENTER GRADE NO. :" AT LINE 1 COL 1.
              ACCEPT GGRADE AT LINE 1 COL 35.
              DISPLAY "ENTER DESIGNATION :" AT LINE 2 COL 1.
