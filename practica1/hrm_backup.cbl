@@ -11,7 +11,6 @@
 
          PROCEDURE DIVISION.
          MAIN-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "*******************************************"
                AT LINE 3 COL 15.
@@ -294,7 +293,6 @@
 
          PROCEDURE DIVISION.
          MAIN-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "*******************************************"
                AT LINE 3 COL 10.
@@ -352,12 +350,10 @@
                                      EXIT PROGRAM.
 
          EMP-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT EMPFILE.
              DISPLAY "ENTER CODE :" AT LINE 23 COL 25.
              ACCEPT EEMPID AT LINE 23 COL 38.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ EMPFILE INVALID KEY GO TO ERROR-EMP-PARA.
              DISPLAY " CODE                 : " AT LINE 1 COL 1.
@@ -393,12 +389,10 @@
              GO TO MAIN-PARA.
 
          LEAVE-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT LEAVEFILE.
              DISPLAY "ENTER CODE :" AT LINE 23 COL 25.
              ACCEPT LEMPID AT LINE 23 COL 38.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ LEAVEFILE INVALID KEY GO TO ERROR-LEAVE-PARA.
              DISPLAY " CODE           : " AT LINE 1 COL 1.
@@ -416,12 +410,10 @@
              GO TO MAIN-PARA.
 
          BRANCH-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT BRANCHFILE.
              DISPLAY " BRANCH CODE :" AT LINE 23 COL 25.
              ACCEPT BBRID AT LINE 23 COL 40.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ BRANCHFILE INVALID KEY GO TO ERROR-BRANCH-PARA.
              DISPLAY " BRANCH CODE    : " AT LINE 1 COL 1.
@@ -443,12 +435,10 @@
              GO TO MAIN-PARA.
 
          DESIGNATION-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT DESIGNATIONFILE.
              DISPLAY "ENTER THE DESIGNATION CODE :" AT LINE 23 COL 25.
              ACCEPT DES AT LINE 23 COL 54.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              PERFORM DES-READ-PARA UNTIL FSDES = 10.
          DES-READ-PARA.
@@ -470,12 +460,10 @@
              GO TO MAIN-PARA.
 
          DEPARTMENT-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT DEPARTMENTFILE.
              DISPLAY "ENTER DEP CODE :" AT LINE 23 COL 25.
              ACCEPT DEPCODE AT LINE 23 COL 42.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ DEPARTMENTFILE INVALID KEY
                 GO TO ERROR-DEPARTMENT-PARA.
@@ -490,12 +478,10 @@
              GO TO MAIN-PARA.
 
          REVISION-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT REVISIONFILE.
              DISPLAY "ENTER REVISION CODE: " AT LINE 23 COL 25.
              ACCEPT RREVID AT LINE 23 COL 46.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ REVISIONFILE INVALID KEY
                       GO TO ERROR-REVISION-PARA.
@@ -538,12 +524,10 @@
              GO TO MAIN-PARA.
 
          PAYMENT-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT PAYMENTFILE.
              DISPLAY "ENTER EMP CODE :" AT LINE 23 COL 25.
              ACCEPT PEMPID AT LINE 23 COL 42.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ PAYMENTFILE INVALID KEY GO TO ERROR-PAYMENT-PARA.
              DISPLAY " EMPLOYEE CODE                  :"
@@ -621,7 +605,6 @@
              DISPLAY "PRESS ENTER TO CONTINUE"
                 AT LINE 25 COL 10.
              ACCEPT OMIT AT LINE 25 COL 24.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY " ENTERTAINMENT                  :"
                AT LINE 1 COL 1.
@@ -663,12 +646,10 @@
              GO TO MAIN-PARA.
 
          CONFIRMATION-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT CONFIRMATIONFILE.
              DISPLAY "ENTER CODE :" AT LINE 23 COL 25.
              ACCEPT CCONID AT LINE 23 COL 38.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ CONFIRMATIONFILE INVALID KEY
              	GO TO ERROR-CONFIRMATION-PARA.
@@ -685,12 +666,10 @@
              GO TO MAIN-PARA.
 
          GRADE-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT GRADEFILE.
              DISPLAY "ENTER GRADE NO. :" AT LINE 23 COL 25.
              ACCEPT GR AT LINE 23 COL 43.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              PERFORM GR-READ-PARA UNTIL FSG = 10.
          GR-READ-PARA.
@@ -710,12 +689,10 @@
              GO TO MAIN-PARA.
 
          TRANSFER-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT TRANSFERFILE.
              DISPLAY "ENTER TRANSFER CODE : " AT LINE 23 COL 25.
              ACCEPT TTRFID AT LINE 23 COL 47.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ TRANSFERFILE INVALID KEY GO TO ERROR-TRANSFER-PARA.
              DISPLAY " TRANSFER CODE     : " AT LINE 1 COL 1.
@@ -733,12 +710,10 @@
              GO TO MAIN-PARA.
 
          EMPPERSONAL-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN INPUT EMPPERSONALFILE.
              DISPLAY "ENTER EMP CODE :" AT LINE 23 COL 25.
              ACCEPT EPEMPID AT LINE 23 COL 42.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              READ EMPPERSONALFILE INVALID KEY
                              GO TO ERROR-EMPPERSONAL-PARA.
@@ -784,7 +759,6 @@
 
          ERROR-EMP-PARA.
              CLOSE EMPFILE.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
@@ -794,7 +768,6 @@
 
          ERROR-LEAVE-PARA.
              CLOSE LEAVEFILE.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
@@ -804,7 +777,6 @@
 
          ERROR-BRANCH-PARA.
              CLOSE BRANCHFILE.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
@@ -814,7 +786,6 @@
 
          ERROR-DEPARTMENT-PARA.
              CLOSE DEPARTMENTFILE.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
@@ -824,7 +795,6 @@
 
          ERROR-REVISION-PARA.
              CLOSE REVISIONFILE.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
@@ -834,7 +804,6 @@
 
          ERROR-PAYMENT-PARA.
              CLOSE PAYMENTFILE.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
@@ -844,7 +813,6 @@
 
          ERROR-CONFIRMATION-PARA.
              CLOSE CONFIRMATIONFILE.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
@@ -854,7 +822,6 @@
 
          ERROR-TRANSFER-PARA.
              CLOSE TRANSFERFILE.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
@@ -864,7 +831,6 @@
 
          ERROR-EMPPERSONAL-PARA.
              CLOSE EMPPERSONALFILE.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "INVALID CODE" AT LINE 12 COL 30.
              DISPLAY "PRESS ENTER TO RETURN TO HRMS READ MENU" 
@@ -1127,7 +1093,6 @@
 
          PROCEDURE DIVISION.
          MAIN-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "*******************************************"
                AT LINE 3 COL 10.
@@ -1185,7 +1150,6 @@
                                      EXIT PROGRAM.
 
          EMP-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O EMPFILE.
              DISPLAY FSO AT LINE 3 COL 1.
@@ -1222,7 +1186,6 @@
              GO TO MAIN-PARA.
 
          LEAVE-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O LEAVEFILE.
              *>IF FSL = 30
@@ -1241,7 +1204,6 @@
              GO TO MAIN-PARA.
 
          BRANCH-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O BRANCHFILE.
              *>IF FSL = 30
@@ -1264,7 +1226,6 @@
              GO TO MAIN-PARA.
 
          DESIGNATION-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN EXTEND DESIGNATIONFILE.
              IF FSDES <> 00
@@ -1280,7 +1241,6 @@
              GO TO MAIN-PARA.
 
          DEPARTMENT-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O DEPARTMENTFILE.
              *>IF FSDEP = 30
@@ -1295,7 +1255,6 @@
              GO TO MAIN-PARA.
 
          REVISION-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O REVISIONFILE.
              *>IF FSR = 30
@@ -1338,7 +1297,6 @@
              GO TO MAIN-PARA.
 
          PAYMENT-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O PAYMENTFILE.
              *>IF FSP = 30
@@ -1392,7 +1350,6 @@
              ACCEPT PMEDI AT LINE 23 COL 35.
              DISPLAY "ENTER BOOK REIMBURSEMENT :" AT LINE 24 COL 1.
              ACCEPT PBOOK AT LINE 24 COL 35.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              DISPLAY "ENTER ENTERTAINMENT :" AT LINE 1 COL 1.
              ACCEPT PENTER AT LINE 1 COL 35.
@@ -1425,7 +1382,6 @@
              GO TO MAIN-PARA.
 
          CONFIRMATION-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O CONFIRMATIONFILE.
              *>IF FSC = 30
@@ -1442,7 +1398,6 @@
              GO TO MAIN-PARA.
 
          GRADE-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN EXTEND GRADEFILE.
              IF FSG <> 00
@@ -1456,7 +1411,6 @@
              GO TO MAIN-PARA.
 
          TRANSFER-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O TRANSFERFILE.
              *>IF FST = 30
@@ -1475,7 +1429,6 @@
              GO TO MAIN-PARA.
 
          EMPPERSONAL-PARA.
-             *>DISPLAY ERASE AT LINE 1 COL 1.
              DISPLAY ERASE-1
              OPEN I-O EMPPERSONALFILE.
              *>IF FSEP = 30
