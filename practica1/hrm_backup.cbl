@@ -288,6 +288,9 @@
          77 OMIT  PIC 99.
          77 LBCITY PIC X(30).
          77 LBLINE PIC 99.
+         77 CNTR  PIC 99.
+         77 LBCITY-SPACES PIC 99.
+         77 LBCITY-LEN    PIC 99.
 
          SCREEN SECTION.
          01 ERASE-1.
@@ -396,42 +399,49 @@
              DISPLAY ERASE-1
              OPEN INPUT BRANCHFILE.
              DISPLAY " CITY : " AT LINE 1 COL 1.
-             ACCEPT LBCITY AT LINE 1 COL 8.
+             ACCEPT LBCITY AT LINE 1 COL 9.
              OPEN INPUT BRANCHFILE.
              MOVE ' ' TO BBRID.
              MOVE 1 TO LBLINE.
              DISPLAY ERASE-1
              PERFORM UNTIL FSB = 10
-                IF LBCITY = ' '
+                MOVE 0 TO CNTR
+                MOVE 0 TO LBCITY-SPACES
+                INSPECT FUNCTION REVERSE (LBCITY)
+                    TALLYING LBCITY-SPACES FOR LEADING SPACES
+                SUBTRACT LBCITY-SPACES FROM 30 GIVING LBCITY-LEN
+                INSPECT BBRADD
+                    TALLYING CNTR FOR ALL LBCITY (1 : LBCITY-LEN)
+                IF CNTR > 0
                     DISPLAY " BRANCH CODE:    "
                         AT LINE LBLINE COL 1
                     DISPLAY BBRID
-                        AT LINE LBLINE COL 17
+                        AT LINE LBLINE COL 18
                     ADD 1 TO LBLINE
                     DISPLAY " BRANCH NAME:    "
                         AT LINE LBLINE COL 1
                     DISPLAY BBRNAME
-                        AT LINE LBLINE COL 17
+                        AT LINE LBLINE COL 18
                     ADD 1 TO LBLINE
                     DISPLAY " BRANCH ADDRESS: "
                         AT LINE LBLINE COL 1
                     DISPLAY BBRADD
-                        AT LINE LBLINE COL 17
+                        AT LINE LBLINE COL 18
                     ADD 1 TO LBLINE
                     DISPLAY " PHONE:          "
                         AT LINE LBLINE COL 1
                     DISPLAY BBRPH
-                        AT LINE LBLINE COL 17
+                        AT LINE LBLINE COL 18
                     ADD 1 TO LBLINE
                     DISPLAY " E-MAIL:         "
                         AT LINE LBLINE COL 1
                     DISPLAY BEMAIL
-                        AT LINE LBLINE COL 17
+                        AT LINE LBLINE COL 18
                     ADD 1 TO LBLINE
                     DISPLAY " MANAGER NAME:   "
                         AT LINE LBLINE COL 1
                     DISPLAY BBRNAME
-                        AT LINE LBLINE COL 17
+                        AT LINE LBLINE COL 18
                     ADD 2 TO LBLINE
                 END-IF
                 READ BRANCHFILE NEXT RECORD
