@@ -6,5 +6,9 @@ import java.util.List;
 
 public interface ProgramManager {
 
+    Program getProgram(int id);
+
+    Program getProgram(String name);
+
     List<Program> getPrograms();
 }

@@ -13,6 +13,5 @@ public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplicationBuilder builder = new SpringApplicationBuilder(Application.class);
         builder.headless(false).run(args);
-        logger.info("It works!");
     }
 }
