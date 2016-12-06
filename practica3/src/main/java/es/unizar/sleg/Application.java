@@ -12,7 +12,8 @@ public class Application extends SpringBootServletInitializer {
     private static Logger logger = Logger.getLogger(Application.class.getName());
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(Application.class);
+        builder.headless(false).run(args);
         logger.info("It works!");
     }
 }
