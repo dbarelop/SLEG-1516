@@ -29,6 +29,8 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
+	// FIX for OSX: http://www.microshell.com/programming/java/performing-optical-character-recognition-in-java/
+	// Modify JAR file in Gradle's cache: ~/.gradle/caches/modules-2/files-2.1/net.sourceforge.tess4j/tess4j/3.2.1/*/tess4j-3.2.1.jar
 	compile('net.sourceforge.tess4j:tess4j:3.2.1')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
