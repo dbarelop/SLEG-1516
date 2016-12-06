@@ -1,8 +1,5 @@
-package es.unizar.sleg.domain;
+package es.unizar.sleg.prac3.domain;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Program {
 
     private Integer id;
@@ -10,6 +7,9 @@ public class Program {
     private String type;
     private String tape;
     private Integer register;
+
+    public Program() {
+    }
 
     public Program(Integer id, String name, String type, String tape, Integer register) {
         this.id = id;

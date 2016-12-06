@@ -1,6 +1,6 @@
-package es.unizar.sleg.controller;
+package es.unizar.sleg.prac3.controller;
 
-import es.unizar.sleg.service.ProgramManager;
+import es.unizar.sleg.prac3.service.ProgramManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

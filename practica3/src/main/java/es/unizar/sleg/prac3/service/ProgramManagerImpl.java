@@ -1,7 +1,7 @@
-package es.unizar.sleg.service;
+package es.unizar.sleg.prac3.service;
 
-import es.unizar.sleg.domain.Program;
-import es.unizar.sleg.repository.ProgramRepository;
+import es.unizar.sleg.prac3.domain.Program;
+import es.unizar.sleg.prac3.repository.ProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
