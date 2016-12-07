@@ -34,4 +34,5 @@ dependencies {
 	compile('net.sourceforge.tess4j:tess4j:3.2.1')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.apache.commons:commons-lang3:3.5')
 }
