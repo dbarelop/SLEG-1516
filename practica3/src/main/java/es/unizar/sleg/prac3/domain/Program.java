@@ -18,6 +18,14 @@ public class Program {
     public Program() {
     }
 
+    public Program(Integer id, String name, ProgramType type, String tape, Integer register) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.tape = tape;
+        this.register = register;
+    }
+
     public Program(Integer id, String name, ProgramType type, String tape) {
         this.id = id;
         this.name = name;
@@ -89,8 +97,7 @@ public class Program {
         return result;
     }
 
-    public static Program parseProgram(String str) {
-        //Pattern regex = Pattern.compile("(\\d{1,})  - (.+)   (.+)   CINTA:(.+)$");
+    public static Program parseProgram1(String str) {
         String programTypes = Arrays.stream(ProgramType.values()).map(ProgramType::toString).collect(Collectors.joining("|"));
         Pattern regex = Pattern.compile("^(\\d+) *- *(.+) (" + programTypes + ") CINTA:(.+)$");
         Matcher m = regex.matcher(str);
@@ -106,5 +113,29 @@ public class Program {
             }
         }
         return null;
+    }
+
+    public static Program parseProgram2(String str) {
+        String programTypes = Arrays.stream(ProgramType.values()).map(ProgramType::toString).collect(Collectors.joining("|"));
+        Pattern regex = Pattern.compile("^(\\d+) (.+) (" + programTypes + ") (.+) (\\d+)$");
+        Matcher m = regex.matcher(str);
+        if (m.find()) {
+            try {
+                Integer id = Integer.parseInt(m.group(1));
+                String name = m.group(2);
+                ProgramType type = ProgramType.parse(m.group(3));
+                String tape = m.group(4);
+                Integer register = Integer.parseInt(m.group(5));
+                return new Program(id, name, type, tape, register);
+            } catch (IllegalStateException e) {
+                logger.severe("Error parsing Program from \"" + str + "\"");
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return id + " - " + name + "(" + type + ")" + " - " + tape + " " + register;
     }
 }

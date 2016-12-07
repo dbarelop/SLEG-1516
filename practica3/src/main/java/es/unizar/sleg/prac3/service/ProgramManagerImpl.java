@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,7 +103,7 @@ public class ProgramManagerImpl implements ProgramManager {
             // Execute return sequence
             keySequence(keysReturn);
             result = result.substring(0, result.indexOf('\n'));
-            return Program.parseProgram(result);
+            return Program.parseProgram1(result);
         } catch (InterruptedException | IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -133,7 +134,7 @@ public class ProgramManagerImpl implements ProgramManager {
             // Execute return sequence
             keySequence(keysReturn);
             result = result.substring(0, result.indexOf('\n'));
-            return Program.parseProgram(result);
+            return Program.parseProgram1(result);
         } catch (InterruptedException | IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -142,6 +143,33 @@ public class ProgramManagerImpl implements ProgramManager {
 
     @Override
     public List<Program> getPrograms() {
+        logger.fine("Searching all programs...");
+        // Key sequence to search the record
+        final int[] keysSearch = { KeyEvent.VK_6, KeyEvent.VK_ENTER };
+        // Key sequence to return to the main menu
+        final int[] keysNext = { KeyEvent.VK_SPACE };
+        try {
+            // Go to the listing page8
+            keySequence(keysSearch);
+            List<Program> programs = new ArrayList<>();
+            boolean lastPage = false;
+            while (!lastPage) {
+                // Read the screen
+                String result = readScreen();
+                lastPage = !result.contains("PULSA SPACE PARA CONTINUAR");
+                if (!lastPage) {
+                    String[] results = result.split("\n");
+                    for (int i = 1; i < results.length - 1; i++) {
+                        Program p = Program.parseProgram2(results[i]);
+                        programs.add(p);
+                    }
+                    keySequence(keysNext);
+                }
+            }
+            return programs;
+        } catch (InterruptedException | IOException e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+        }
         return null;
     }
 }
