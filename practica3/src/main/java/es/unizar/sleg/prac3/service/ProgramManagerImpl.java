@@ -46,8 +46,7 @@ public class ProgramManagerImpl implements ProgramManager {
         if (capture != null) {
             try {
                 String ocrResult = ocr.doOCR(capture);
-                logger.fine("Text recognized with Tesseract: \n" + ocrResult);
-
+                logger.finest("Text recognized with Tesseract: \n" + ocrResult);
                 return ocrResult;
             } catch (TesseractException e) {
                 logger.log(Level.SEVERE, e.getMessage(), e);
@@ -59,9 +58,10 @@ public class ProgramManagerImpl implements ProgramManager {
     private File captureScreen() throws InterruptedException {
         logger.fine("Capturing screen...");
         robot.keyPress(KeyEvent.VK_CONTROL); robot.keyPress(KeyEvent.VK_F5);
-        Thread.sleep(20);
+        Thread.sleep(10);
         robot.keyRelease(KeyEvent.VK_CONTROL); robot.keyRelease(KeyEvent.VK_F5);
         File capturesDir = new File(CAPTURES_DIR);
+        // Give dosbox enough time to process the screenshot and write it to the filesystem
         Thread.sleep(200);
         File[] captures = capturesDir.listFiles();
         if (captures != null) {
@@ -80,7 +80,7 @@ public class ProgramManagerImpl implements ProgramManager {
             if (k >= KeyEvent.VK_A && k <= KeyEvent.VK_Z) {
                 robot.keyPress(KeyEvent.VK_SHIFT);
             }
-            robot.keyPress(k); robot.keyRelease(k); Thread.sleep(20); robot.keyRelease(KeyEvent.VK_SHIFT); Thread.sleep(100);
+            robot.keyPress(k); robot.keyRelease(k); Thread.sleep(10); robot.keyRelease(KeyEvent.VK_SHIFT); Thread.sleep(10);
         }
     }
 
@@ -156,7 +156,7 @@ public class ProgramManagerImpl implements ProgramManager {
             while (!lastPage) {
                 // Read the screen
                 String result = readScreen();
-                lastPage = !result.contains("PULSA SPACE PARA CONTINUAR");
+                lastPage = result.contains("M E N U");
                 if (!lastPage) {
                     String[] results = result.split("\n");
                     for (int i = 1; i < results.length - 1; i++) {
