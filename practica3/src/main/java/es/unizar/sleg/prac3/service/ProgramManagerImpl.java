@@ -111,6 +111,32 @@ public class ProgramManagerImpl implements ProgramManager {
 
     @Override
     public Program getProgram(String name) {
+        logger.fine("Searching program with name = \"" + name + "\"...");
+        // Key sequence to search the record
+        final int[] keysSearch = new int[4 + name.length()];
+        keysSearch[0] = KeyEvent.VK_7; keysSearch[1] = KeyEvent.VK_N; keysSearch[2] = KeyEvent.VK_ENTER; keysSearch[keysSearch.length - 1] = KeyEvent.VK_ENTER;
+        // Key sequence to return to the main menu
+        final int[] keysReturn = { KeyEvent.VK_S, KeyEvent.VK_ENTER, KeyEvent.VK_N, KeyEvent.VK_ENTER, KeyEvent.VK_N, KeyEvent.VK_ENTER };
+        // Map the name letters to keys
+        int i = 3;
+        for (char c : name.toLowerCase().toCharArray()) {
+            if (c >= 'a' && c <= 'z')
+                keysSearch[i++] = KeyEvent.VK_A + c - 'a';
+            else if (c == ' ')
+                keysSearch[i++] = KeyEvent.VK_SPACE;
+        }
+        try {
+            // Execute search sequence
+            keySequence(keysSearch);
+            // Read the screen
+            String result = readScreen();
+            // Execute return sequence
+            keySequence(keysReturn);
+            result = result.substring(0, result.indexOf('\n'));
+            return Program.parseProgram(result);
+        } catch (InterruptedException | IOException e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+        }
         return null;
     }
 

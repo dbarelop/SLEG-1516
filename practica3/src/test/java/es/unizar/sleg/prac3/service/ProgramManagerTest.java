@@ -63,21 +63,20 @@ public class ProgramManagerTest {
         }
     }
 
-    private void comparePrograms(final Program REFERENCE) {
-        Program p1 = programManager.getProgram(REFERENCE.getId());
+    private void comparePrograms(final Program REFERENCE, Program p) {
         double sum = 0.0;
-        double dist = StringUtils.getJaroWinklerDistance(p1.getId().toString(), REFERENCE.getId().toString());
+        double dist = StringUtils.getJaroWinklerDistance(p.getId().toString(), REFERENCE.getId().toString());
         sum += dist;
-        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p1.getId().toString()));
-        dist = StringUtils.getJaroWinklerDistance(p1.getName(), REFERENCE.getName());
+        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p.getId().toString()));
+        dist = StringUtils.getJaroWinklerDistance(p.getName(), REFERENCE.getName());
         sum += dist;
-        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p1.getName()));
-        dist = StringUtils.getJaroWinklerDistance(p1.getType().toString(), REFERENCE.getType().toString());
+        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p.getName()));
+        dist = StringUtils.getJaroWinklerDistance(p.getType().toString(), REFERENCE.getType().toString());
         sum += dist;
-        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p1.getType()));
-        dist = StringUtils.getJaroWinklerDistance(p1.getTape(), REFERENCE.getTape());
+        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p.getType()));
+        dist = StringUtils.getJaroWinklerDistance(p.getTape(), REFERENCE.getTape());
         sum += dist;
-        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p1.getTape()));
+        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p.getTape()));
         double err = 1 - sum / 4;
         logger.fine("-----------------------------");
         logger.info(String.format("%.2f/4.00 (err = %.2f%%)", sum, err * 100));
@@ -87,30 +86,45 @@ public class ProgramManagerTest {
     @Test
     public void searchProgram001Test() {
         final Program REF = new Program(1, "MUGSY", ProgramType.CONVERSACIONAL, "A");
-        comparePrograms(REF);
+        Program p1 = programManager.getProgram(REF.getId());
+        comparePrograms(REF, p1);
+        Program p2 = programManager.getProgram(REF.getName());
+        comparePrograms(REF, p2);
     }
 
     @Test
     public void searchProgram002Test() {
         final Program REF = new Program(2, "PAINTBOX", ProgramType.UTILIDAD, "A");
-        comparePrograms(REF);
+        Program p1 = programManager.getProgram(REF.getId());
+        comparePrograms(REF, p1);
+        Program p2 = programManager.getProgram(REF.getName());
+        comparePrograms(REF, p2);
     }
 
     @Test
     public void searchProgram006Test() {
         final Program REF = new Program(6, "REVERSI", ProgramType.JUEGO_DE_MESA, "A");
-        comparePrograms(REF);
+        Program p1 = programManager.getProgram(REF.getId());
+        comparePrograms(REF, p1);
+        Program p2 = programManager.getProgram(REF.getName());
+        comparePrograms(REF, p2);
     }
 
     @Test
     public void searchProgram008Test() {
         final Program REF = new Program(8, "HORACE AND THE SPIDERS", ProgramType.ARCADE, "A");
-        comparePrograms(REF);
+        Program p1 = programManager.getProgram(REF.getId());
+        comparePrograms(REF, p1);
+        Program p2 = programManager.getProgram(REF.getName());
+        comparePrograms(REF, p2);
     }
 
     @Test
     public void searchProgram020Test() {
         final Program REF = new Program(20, "MATCH POINT", ProgramType.S_DEPORTIVO, "B-E");
-        comparePrograms(REF);
+        Program p1 = programManager.getProgram(REF.getId());
+        comparePrograms(REF, p1);
+        Program p2 = programManager.getProgram(REF.getName());
+        comparePrograms(REF, p2);
     }
 }
