@@ -61,27 +61,48 @@ public class ProgramManagerTest {
         }
     }
 
-    @Test
-    public void programSearchTest() {
-        final int PROGRAM_ID = 1;
-        Program p1 = programManager.getProgram(PROGRAM_ID);
-        final Program p2 = new Program(1, "MUGSY", "CONVERSACIONAL", "A");
+    private void comparePrograms(final Program REFERENCE) {
+        Program p1 = programManager.getProgram(REFERENCE.getId());
         double sum = 0.0;
-        double dist = StringUtils.getJaroWinklerDistance(p1.getId().toString(), p2.getId().toString());
+        double dist = StringUtils.getJaroWinklerDistance(p1.getId().toString(), REFERENCE.getId().toString());
         sum += dist;
         logger.fine(dist + "/1.0" + "\t\"" + p1.getId().toString());
-        dist = StringUtils.getJaroWinklerDistance(p1.getName(), p2.getName());
+        dist = StringUtils.getJaroWinklerDistance(p1.getName(), REFERENCE.getName());
         sum += dist;
         logger.fine(dist + "/1.0" + "\t\"" + p1.getName());
-        dist = StringUtils.getJaroWinklerDistance(p1.getType(), p2.getType());
+        dist = StringUtils.getJaroWinklerDistance(p1.getType(), REFERENCE.getType());
         sum += dist;
         logger.fine(dist + "/1.0" + "\t\"" + p1.getType());
-        dist = StringUtils.getJaroWinklerDistance(p1.getTape(), p2.getTape());
+        dist = StringUtils.getJaroWinklerDistance(p1.getTape(), REFERENCE.getTape());
         sum += dist;
         logger.fine(dist + "/1.0" + "\t\"" + p1.getTape());
         double err = 1 - sum / 4;
         logger.fine("--------------------");
         logger.info(sum + "/4.0" + " (err = " + err + ")");
         collector.checkThat(err, lessThan(0.05));
+    }
+
+    @Test
+    public void searchProgram1Test() {
+        final Program REF = new Program(1, "MUGSY", "CONVERSACIONAL", "A");
+        comparePrograms(REF);
+    }
+
+    @Test
+    public void searchProgram2Test() {
+        final Program REF = new Program(2, "PAINTBOX", "UTILIDAD", "A");
+        comparePrograms(REF);
+    }
+
+    @Test
+    public void searchProgram6Test() {
+        final Program REF = new Program(6, "REVERSI", "JUEGO DE MESA", "A");
+        comparePrograms(REF);
+    }
+
+    @Test
+    public void searchProgram8Test() {
+        final Program REF = new Program(8, "HORACE AND THE SPIDERS", "ARCADE", "A");
+        comparePrograms(REF);
     }
 }
