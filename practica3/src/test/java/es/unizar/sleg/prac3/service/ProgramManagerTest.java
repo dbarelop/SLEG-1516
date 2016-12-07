@@ -78,6 +78,98 @@ public class ProgramManagerTest {
         }
     }
 
+    @Test
+    public void ocrProgramList1() {
+        try {
+            final String[] expected = {
+                    "Nº NOMBRE TIPO CINTA REGISTRO",
+                    "19 OLIMPICON ARCADE B 19",
+                    "20 MATCH POINT S. DEPORTIVO B-E 20",
+                    "21 THE BIRDS AND THE BEES ARCADE B 21",
+                    "22 EL ESCALADOR LOCO ARCADE B 22",
+                    "23 ZZOOM ARCADE B 23",
+                    "24 ZIP ZAP ARCADE B 24",
+                    "25 COPYCAT 3 UTILIDAD B 25",
+                    "26 COSMIC CRUISER ARCADE B 26",
+                    "27 BLACK HOLE ARCADE B 27",
+                    "28 CHUCKIE EGG ARCADE B 28",
+                    "29 THE KEY UTILIDAD B 29",
+                    "30 COOKIE ARCADE B 30",
+                    "31 BLUE THUNDER ARCADE B 31",
+                    "32 SPACE SHUTTLE SIMULADOR B 32",
+                    "33 STATION ZEBRA ARCADE B 33",
+                    "34 ANDROIDE II ARCADE B 34",
+                    "35 INFRARED UTILIDAD B 35",
+                    "36 ZX DISASSEMBLER UTILIDAD B 36",
+                    "PULSA SPACE PARA CONTINUAR U OTRA TECLA PARA ACABAR"
+            };
+            ((ProgramManagerImpl) programManager).goToProgramList(1);
+            String result = ((ProgramManagerImpl) programManager).readScreen();
+            // Return to main menu
+            ((ProgramManagerImpl) programManager).pressEnter();
+            double sum = 0.0;
+            int i = 0;
+            for (String line : result.split("\n")) {
+                double dist = StringUtils.getJaroWinklerDistance(line, expected[i++]);
+                sum += dist;
+                logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, line));
+                //collector.checkThat(dist, equalTo(1.0));
+            }
+            double err = 1 - sum / expected.length;
+            logger.fine("-----------------------------");
+            logger.info(String.format("%.2f/%.2f (err = %.2f%%)", sum, (double) expected.length, err * 100));
+            collector.checkThat(err, lessThan(MAX_ERR));
+        } catch (InterruptedException | IOException e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
+
+    @Test
+    public void ocrProgramList2() {
+        try {
+            final String[] expected = {
+                    "Nº NOMBRE TIPO CINTA REGISTRO",
+                    "1 MUGSY CONVERSACIONAL A 1",
+                    "2 PAINTBOX UTILIDAD A 1",
+                    "3 HUNCHBACK ARCADE A 3",
+                    "4 ZAXXAN ARCADE A 4",
+                    "5 TOWER OF EVIL ARCADE A 6",
+                    "6 REVERSI JUEGO DE MESA A 6",
+                    "7 HORACE GOES SKIING ARCADE A 7",
+                    "8 HORACE AND THE SPIDERS ARCADE A 8",
+                    "9 HUNGRY HORACE ARCADE A 9",
+                    "10 MISSILE ARCADE A 10",
+                    "11 PSYTRON ARCADE A 11",
+                    "12 SPACE RAIDERS ARCADE A 12",
+                    "13 PLANETOIDS ARCADE A 13",
+                    "14 INTERCEPTOR COBALT SIMULADOR A 14",
+                    "15 COMBAT ZONE ARCADE A 15",
+                    "16 TRANZ AM ARCADE A 16",
+                    "17 AUTOSTOPISTA GALAZTICO ARCADE A 17",
+                    "18 HIGH NOON ARCADE A 18",
+                    "PULSA SPACE PARA CONTINUAR U OTRA TECLA PARA ACABAR"
+            };
+            ((ProgramManagerImpl) programManager).goToProgramList(0);
+            String result = ((ProgramManagerImpl) programManager).readScreen();
+            // Return to main menu
+            ((ProgramManagerImpl) programManager).pressEnter();
+            double sum = 0.0;
+            int i = 0;
+            for (String line : result.split("\n")) {
+                double dist = StringUtils.getJaroWinklerDistance(line, expected[i++]);
+                sum += dist;
+                logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, line));
+                //collector.checkThat(dist, equalTo(1.0));
+            }
+            double err = 1 - sum / expected.length;
+            logger.fine("-----------------------------");
+            logger.info(String.format("%.2f/%.2f (err = %.2f%%)", sum, (double) expected.length, err * 100));
+            collector.checkThat(err, lessThan(MAX_ERR));
+        } catch (InterruptedException | IOException e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
+
     private void comparePrograms(final Program REFERENCE, Program p) {
         double err = 1.0;
         double sum = 0.0;

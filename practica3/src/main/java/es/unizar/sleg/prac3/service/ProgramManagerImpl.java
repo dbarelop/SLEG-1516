@@ -90,6 +90,17 @@ public class ProgramManagerImpl implements ProgramManager {
         }
     }
 
+    protected void goToProgramList(int page) throws InterruptedException {
+        keySequence(new int[]{ KeyEvent.VK_6, KeyEvent.VK_ENTER });
+        while (page-- > 0) {
+            keySequence(new int[]{ KeyEvent.VK_SPACE });
+        }
+    }
+
+    protected void pressEnter() throws InterruptedException {
+        keySequence(new int[]{ KeyEvent.VK_ENTER });
+    }
+
     @Override
     public Program getProgram(int id) {
         logger.fine("Searching program with id = " + id + "...");
@@ -156,13 +167,11 @@ public class ProgramManagerImpl implements ProgramManager {
     @Override
     public List<Program> getPrograms() {
         logger.fine("Searching all programs...");
-        // Key sequence to search the record
-        final int[] keysSearch = { KeyEvent.VK_6, KeyEvent.VK_ENTER };
         // Key sequence to return to the main menu
         final int[] keysNext = { KeyEvent.VK_SPACE };
         try {
-            // Go to the listing page8
-            keySequence(keysSearch);
+            // Go to the listing page
+            goToProgramList(0);
             List<Program> programs = new ArrayList<>();
             boolean lastPage = false;
             while (!lastPage) {
