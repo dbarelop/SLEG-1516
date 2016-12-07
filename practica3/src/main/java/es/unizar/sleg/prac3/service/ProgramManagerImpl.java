@@ -4,6 +4,7 @@ import es.unizar.sleg.prac3.domain.Program;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract1;
 import net.sourceforge.tess4j.TesseractException;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
@@ -26,6 +27,11 @@ public class ProgramManagerImpl implements ProgramManager {
 
     public ProgramManagerImpl() throws InterruptedException, IOException {
         try {
+            File capturesDir = new File(CAPTURES_DIR);
+            if (capturesDir.isDirectory())
+                FileUtils.cleanDirectory(capturesDir);
+            else
+                capturesDir.mkdir();
             robot = new Robot();
             ocr = new Tesseract1();
             ocr.setLanguage("spa");
@@ -103,6 +109,9 @@ public class ProgramManagerImpl implements ProgramManager {
             // Execute return sequence
             keySequence(keysReturn);
             result = result.substring(0, result.indexOf('\n'));
+            // Cleanup
+            File capturesDir = new File(CAPTURES_DIR);
+            FileUtils.cleanDirectory(capturesDir);
             return Program.parseProgram1(result);
         } catch (InterruptedException | IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
@@ -134,6 +143,9 @@ public class ProgramManagerImpl implements ProgramManager {
             // Execute return sequence
             keySequence(keysReturn);
             result = result.substring(0, result.indexOf('\n'));
+            // Cleanup
+            File capturesDir = new File(CAPTURES_DIR);
+            FileUtils.cleanDirectory(capturesDir);
             return Program.parseProgram1(result);
         } catch (InterruptedException | IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
@@ -166,6 +178,8 @@ public class ProgramManagerImpl implements ProgramManager {
                     keySequence(keysNext);
                 }
             }
+            File capturesDir = new File(CAPTURES_DIR);
+            FileUtils.cleanDirectory(capturesDir);
             return programs;
         } catch (InterruptedException | IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
