@@ -88,16 +88,19 @@ public class Program {
     }
 
     public static Program parseProgram(String str) {
-        Pattern regex = Pattern.compile("(\\d{1,})  - (.+)   (.+)   CINTA:(.+)$");
+        //Pattern regex = Pattern.compile("(\\d{1,})  - (.+)   (.+)   CINTA:(.+)$");
+        Pattern regex = Pattern.compile("^(\\d+) *- *(.+) (.+) CINTA:(.+)$");
         Matcher m = regex.matcher(str);
-        try {
-            Integer id = Integer.parseInt(m.group(0));
-            String name = m.group(1);
-            String type = m.group(2);
-            String tape = m.group(3);
-            return new Program(id, name, type, tape);
-        } catch (IllegalStateException e) {
-            logger.severe("Error parsing Program from \"" + str + "\"");
+        if (m.find()) {
+            try {
+                Integer id = Integer.parseInt(m.group(1));
+                String name = m.group(2);
+                String type = m.group(3);
+                String tape = m.group(4);
+                return new Program(id, name, type, tape);
+            } catch (IllegalStateException e) {
+                logger.severe("Error parsing Program from \"" + str + "\"");
+            }
         }
         return null;
     }

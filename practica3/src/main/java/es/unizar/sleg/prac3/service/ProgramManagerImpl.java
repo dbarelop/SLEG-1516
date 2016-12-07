@@ -45,7 +45,7 @@ public class ProgramManagerImpl implements ProgramManager {
         if (capture != null) {
             try {
                 String ocrResult = ocr.doOCR(capture);
-                logger.info("Text recognized with Tesseract: \n" + ocrResult);
+                logger.fine("Text recognized with Tesseract: \n" + ocrResult);
 
                 return ocrResult;
             } catch (TesseractException e) {
@@ -58,13 +58,14 @@ public class ProgramManagerImpl implements ProgramManager {
     private File captureScreen() throws InterruptedException {
         logger.fine("Capturing screen...");
         robot.keyPress(KeyEvent.VK_CONTROL); robot.keyPress(KeyEvent.VK_F5);
+        Thread.sleep(20);
         robot.keyRelease(KeyEvent.VK_CONTROL); robot.keyRelease(KeyEvent.VK_F5);
         File capturesDir = new File(CAPTURES_DIR);
         Thread.sleep(200);
         File[] captures = capturesDir.listFiles();
         if (captures != null) {
             File capture = captures[captures.length - 1];
-            logger.info("Generated capture in file " + capture.getName());
+            logger.info("Generated screen capture in file " + capture.getName());
             return capture;
         } else {
             logger.warning("No capture file generated");
@@ -78,7 +79,7 @@ public class ProgramManagerImpl implements ProgramManager {
             if (k >= KeyEvent.VK_A && k <= KeyEvent.VK_Z) {
                 robot.keyPress(KeyEvent.VK_SHIFT);
             }
-            robot.keyPress(k); robot.keyRelease(k); robot.keyRelease(KeyEvent.VK_SHIFT); Thread.sleep(100);
+            robot.keyPress(k); robot.keyRelease(k); Thread.sleep(20); robot.keyRelease(KeyEvent.VK_SHIFT); Thread.sleep(100);
         }
     }
 
@@ -100,6 +101,7 @@ public class ProgramManagerImpl implements ProgramManager {
             String result = readScreen();
             // Execute return sequence
             keySequence(keysReturn);
+            result = result.substring(0, result.indexOf('\n'));
             return Program.parseProgram(result);
         } catch (InterruptedException | IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
