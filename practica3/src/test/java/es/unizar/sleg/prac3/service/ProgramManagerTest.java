@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.lessThan;
 public class ProgramManagerTest {
 
     private static final Logger logger = Logger.getLogger(ProgramManagerTest.class.getName());
+    private static final double MAX_ERR = 0.05;
 
     @Autowired
     private ProgramManager programManager;
@@ -50,13 +51,13 @@ public class ProgramManagerTest {
             for (String line : result.split("\n")) {
                 double dist = StringUtils.getJaroWinklerDistance(line, expected[i++]);
                 sum += dist;
-                logger.fine(dist + "/1.0" + "\t\"" + line + "\"");
+                logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, line));
                 //collector.checkThat(dist, equalTo(1.0));
             }
             double err = 1 - sum / expected.length;
-            logger.fine("--------------------");
-            logger.info(sum + "/" + (double) expected.length + " (err = " + err + ")");
-            collector.checkThat(err, lessThan(0.05));
+            logger.fine("-----------------------------");
+            logger.info(String.format("%.2f/%.2f (err = %.2f%%)", sum, (double) expected.length, err * 100));
+            collector.checkThat(err, lessThan(MAX_ERR));
         } catch (InterruptedException | IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
@@ -67,43 +68,49 @@ public class ProgramManagerTest {
         double sum = 0.0;
         double dist = StringUtils.getJaroWinklerDistance(p1.getId().toString(), REFERENCE.getId().toString());
         sum += dist;
-        logger.fine(dist + "/1.0" + "\t\"" + p1.getId().toString());
+        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p1.getId().toString()));
         dist = StringUtils.getJaroWinklerDistance(p1.getName(), REFERENCE.getName());
         sum += dist;
-        logger.fine(dist + "/1.0" + "\t\"" + p1.getName());
+        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p1.getName()));
         dist = StringUtils.getJaroWinklerDistance(p1.getType().toString(), REFERENCE.getType().toString());
         sum += dist;
-        logger.fine(dist + "/1.0" + "\t\"" + p1.getType());
+        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p1.getType()));
         dist = StringUtils.getJaroWinklerDistance(p1.getTape(), REFERENCE.getTape());
         sum += dist;
-        logger.fine(dist + "/1.0" + "\t\"" + p1.getTape());
+        logger.fine(String.format("%.2f/1.00\t\"%s\"", dist, p1.getTape()));
         double err = 1 - sum / 4;
-        logger.fine("--------------------");
-        logger.info(sum + "/4.0" + " (err = " + err + ")");
-        collector.checkThat(err, lessThan(0.05));
+        logger.fine("-----------------------------");
+        logger.info(String.format("%.2f/4.00 (err = %.2f%%)", sum, err * 100));
+        collector.checkThat(err, lessThan(MAX_ERR));
     }
 
     @Test
-    public void searchProgram1Test() {
+    public void searchProgram001Test() {
         final Program REF = new Program(1, "MUGSY", ProgramType.CONVERSACIONAL, "A");
         comparePrograms(REF);
     }
 
     @Test
-    public void searchProgram2Test() {
+    public void searchProgram002Test() {
         final Program REF = new Program(2, "PAINTBOX", ProgramType.UTILIDAD, "A");
         comparePrograms(REF);
     }
 
     @Test
-    public void searchProgram6Test() {
+    public void searchProgram006Test() {
         final Program REF = new Program(6, "REVERSI", ProgramType.JUEGO_DE_MESA, "A");
         comparePrograms(REF);
     }
 
     @Test
-    public void searchProgram8Test() {
+    public void searchProgram008Test() {
         final Program REF = new Program(8, "HORACE AND THE SPIDERS", ProgramType.ARCADE, "A");
+        comparePrograms(REF);
+    }
+
+    @Test
+    public void searchProgram020Test() {
+        final Program REF = new Program(20, "MATCH POINT", ProgramType.S_DEPORTIVO, "B-E");
         comparePrograms(REF);
     }
 }
