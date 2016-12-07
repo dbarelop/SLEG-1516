@@ -1,6 +1,7 @@
 package es.unizar.sleg.prac3.service;
 
 import es.unizar.sleg.prac3.domain.Program;
+import es.unizar.sleg.prac3.domain.ProgramType;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Rule;
 import org.junit.Test;
@@ -70,7 +71,7 @@ public class ProgramManagerTest {
         dist = StringUtils.getJaroWinklerDistance(p1.getName(), REFERENCE.getName());
         sum += dist;
         logger.fine(dist + "/1.0" + "\t\"" + p1.getName());
-        dist = StringUtils.getJaroWinklerDistance(p1.getType(), REFERENCE.getType());
+        dist = StringUtils.getJaroWinklerDistance(p1.getType().toString(), REFERENCE.getType().toString());
         sum += dist;
         logger.fine(dist + "/1.0" + "\t\"" + p1.getType());
         dist = StringUtils.getJaroWinklerDistance(p1.getTape(), REFERENCE.getTape());
@@ -84,25 +85,25 @@ public class ProgramManagerTest {
 
     @Test
     public void searchProgram1Test() {
-        final Program REF = new Program(1, "MUGSY", "CONVERSACIONAL", "A");
+        final Program REF = new Program(1, "MUGSY", ProgramType.CONVERSACIONAL, "A");
         comparePrograms(REF);
     }
 
     @Test
     public void searchProgram2Test() {
-        final Program REF = new Program(2, "PAINTBOX", "UTILIDAD", "A");
+        final Program REF = new Program(2, "PAINTBOX", ProgramType.UTILIDAD, "A");
         comparePrograms(REF);
     }
 
     @Test
     public void searchProgram6Test() {
-        final Program REF = new Program(6, "REVERSI", "JUEGO DE MESA", "A");
+        final Program REF = new Program(6, "REVERSI", ProgramType.JUEGO_DE_MESA, "A");
         comparePrograms(REF);
     }
 
     @Test
     public void searchProgram8Test() {
-        final Program REF = new Program(8, "HORACE AND THE SPIDERS", "ARCADE", "A");
+        final Program REF = new Program(8, "HORACE AND THE SPIDERS", ProgramType.ARCADE, "A");
         comparePrograms(REF);
     }
 }

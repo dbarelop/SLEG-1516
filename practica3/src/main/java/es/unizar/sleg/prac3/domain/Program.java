@@ -1,22 +1,24 @@
 package es.unizar.sleg.prac3.domain;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Program {
     private static final Logger logger = Logger.getLogger(Program.class.getName());
 
     private Integer id;
     private String name;
-    private String type;
+    private ProgramType type;
     private String tape;
     private Integer register;
 
     public Program() {
     }
 
-    public Program(Integer id, String name, String type, String tape) {
+    public Program(Integer id, String name, ProgramType type, String tape) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -39,11 +41,11 @@ public class Program {
         this.name = name;
     }
 
-    public String getType() {
+    public ProgramType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ProgramType type) {
         this.type = type;
     }
 
@@ -89,13 +91,14 @@ public class Program {
 
     public static Program parseProgram(String str) {
         //Pattern regex = Pattern.compile("(\\d{1,})  - (.+)   (.+)   CINTA:(.+)$");
-        Pattern regex = Pattern.compile("^(\\d+) *- *(.+) (.+) CINTA:(.+)$");
+        String programTypes = Arrays.stream(ProgramType.values()).map(ProgramType::toString).collect(Collectors.joining("|"));
+        Pattern regex = Pattern.compile("^(\\d+) *- *(.+) (" + programTypes + ") CINTA:(.+)$");
         Matcher m = regex.matcher(str);
         if (m.find()) {
             try {
                 Integer id = Integer.parseInt(m.group(1));
                 String name = m.group(2);
-                String type = m.group(3);
+                ProgramType type = ProgramType.parse(m.group(3));
                 String tape = m.group(4);
                 return new Program(id, name, type, tape);
             } catch (IllegalStateException e) {
