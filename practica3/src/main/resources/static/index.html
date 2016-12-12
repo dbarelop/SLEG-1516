@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
+    <title>Sistemas Legados - Práctica 3</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+
+    <script type="text/javascript" src="webjars/angular/1.6.0/angular.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/controllers.js"></script>
+    <script type="text/javascript" src="app/services.js"></script>
 </head>
-<body>
-    <h1>It works!</h1>
+<body ng-app="Prac3SLEGApp">
+<div ng-controller="ProgramsCtrl" class="container-full">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1>{{test}}</h1>
+        </div>
+    </div>
+</div>
 </body>
 </html>
