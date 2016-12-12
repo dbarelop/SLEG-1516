@@ -23,6 +23,9 @@ public class ProgramManagerImpl implements ProgramManager {
 
     private static final Logger logger = Logger.getLogger(ProgramManager.class.getName());
     private static final String CAPTURES_DIR = "capture";
+    private static final long DELAY_KEYPRESS = 10;
+    private static final long DELAY_BETWEEN_KEYS = 150;
+    private static final long DELAY_SCREENSHOT = 100;
 
     private Robot robot;
     private ITesseract ocr;
@@ -66,11 +69,11 @@ public class ProgramManagerImpl implements ProgramManager {
     private File captureScreen() throws InterruptedException {
         logger.fine("Capturing screen...");
         robot.keyPress(KeyEvent.VK_CONTROL); robot.keyPress(KeyEvent.VK_F5);
-        Thread.sleep(10);
+        Thread.sleep(DELAY_KEYPRESS);
         robot.keyRelease(KeyEvent.VK_CONTROL); robot.keyRelease(KeyEvent.VK_F5);
         File capturesDir = new File(CAPTURES_DIR);
         // Give dosbox enough time to process the screenshot and write it to the filesystem
-        Thread.sleep(200);
+        Thread.sleep(DELAY_SCREENSHOT);
         File[] captures = capturesDir.listFiles();
         if (captures != null) {
             File capture = captures[captures.length - 1];
@@ -88,7 +91,7 @@ public class ProgramManagerImpl implements ProgramManager {
             if (k >= KeyEvent.VK_A && k <= KeyEvent.VK_Z) {
                 robot.keyPress(KeyEvent.VK_SHIFT);
             }
-            robot.keyPress(k); robot.keyRelease(k); Thread.sleep(10); robot.keyRelease(KeyEvent.VK_SHIFT); Thread.sleep(10);
+            robot.keyPress(k); Thread.sleep(DELAY_KEYPRESS); robot.keyRelease(k); robot.keyRelease(KeyEvent.VK_SHIFT); Thread.sleep(DELAY_BETWEEN_KEYS);
         }
     }
 
@@ -116,7 +119,7 @@ public class ProgramManagerImpl implements ProgramManager {
             Matcher m = regex.matcher(result);
             if (m.find()) {
                 Integer numPrograms = Integer.parseInt(m.group(1));
-                return numPrograms.intValue();
+                return numPrograms;
             } else {
                 return -1;
             }
@@ -203,13 +206,16 @@ public class ProgramManagerImpl implements ProgramManager {
                 // Read the screen
                 String result = readScreen();
                 lastPage = result.contains("M E N U");
-                if (!lastPage) {
+                boolean valid = result.contains("PULSA SPACE");
+                if (valid) {
                     String[] results = result.split("\n");
                     for (int i = 1; i < results.length - 1; i++) {
                         Program p = Program.parseProgram2(results[i]);
                         programs.add(p);
                     }
                     keySequence(keysNext);
+                } else {
+                    Thread.sleep(50);
                 }
             }
             File capturesDir = new File(CAPTURES_DIR);
