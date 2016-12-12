@@ -25,12 +25,22 @@ public class ProgramController {
 
     @GetMapping("/program/{id}")
     public ResponseEntity<Program> getProgram(@PathVariable("id") Integer id) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Program p = programManager.getProgram(id);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
     @GetMapping("/program/name/{name}")
     public ResponseEntity<Program> getProgram(@PathVariable("name") String name) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Program p = programManager.getProgram(name);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
