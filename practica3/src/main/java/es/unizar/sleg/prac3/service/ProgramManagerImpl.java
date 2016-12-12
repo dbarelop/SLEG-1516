@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class ProgramManagerImpl implements ProgramManager {
@@ -99,6 +101,29 @@ public class ProgramManagerImpl implements ProgramManager {
 
     protected void pressEnter() throws InterruptedException {
         keySequence(new int[]{ KeyEvent.VK_ENTER });
+    }
+
+    @Override
+    public int getNumPrograms() {
+        logger.fine("Getting the number of programs in the system...");
+        final int[] keysSearch = { KeyEvent.VK_4 };
+        final int[] keysReturn = { KeyEvent.VK_ENTER };
+        try {
+            keySequence(keysSearch);
+            String result = readScreen().replace("?", "7");
+            keySequence(keysReturn);
+            Pattern regex = Pattern.compile("CONTIENE (\\d+) ARCHIVOS");
+            Matcher m = regex.matcher(result);
+            if (m.find()) {
+                Integer numPrograms = Integer.parseInt(m.group(1));
+                return numPrograms.intValue();
+            } else {
+                return -1;
+            }
+        } catch (InterruptedException | IOException e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+        }
+        return -1;
     }
 
     @Override

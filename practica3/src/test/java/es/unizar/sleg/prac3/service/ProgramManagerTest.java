@@ -79,7 +79,7 @@ public class ProgramManagerTest {
     }
 
     @Test
-    public void ocrProgramList1() {
+    public void ocrProgramList1Test() {
         try {
             final String[] expected = {
                     "Nº NOMBRE TIPO CINTA REGISTRO",
@@ -125,7 +125,7 @@ public class ProgramManagerTest {
     }
 
     @Test
-    public void ocrProgramList2() {
+    public void ocrProgramList2Test() {
         try {
             final String[] expected = {
                     "Nº NOMBRE TIPO CINTA REGISTRO",
@@ -168,6 +168,12 @@ public class ProgramManagerTest {
         } catch (InterruptedException | IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
+    }
+
+    @Test
+    public void numProgramTest() {
+        int numPrograms = programManager.getNumPrograms();
+        Assert.assertEquals(numPrograms, 763);
     }
 
     private void comparePrograms(final Program REFERENCE, Program p) {

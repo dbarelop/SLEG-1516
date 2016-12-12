@@ -17,6 +17,12 @@ public class ProgramController {
     @Autowired
     private ProgramManager programManager;
 
+    @GetMapping("/programs/count")
+    public ResponseEntity<Integer> getProgramCount() {
+        int numPrograms = programManager.getNumPrograms();
+        return new ResponseEntity<>(numPrograms, HttpStatus.OK);
+    }
+
     @GetMapping("/programs")
     public ResponseEntity<List<Program>> getPrograms() {
         List<Program> programs = programManager.getPrograms();
