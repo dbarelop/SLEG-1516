@@ -1,20 +1,33 @@
 angular.module("Prac3SLEGApp.controllers", []).controller("ProgramsCtrl", function($scope, ProgramsService) {
 
-    $scope.program_id = "";
-    $scope.program_name = "";
+    $scope.programId = "";
+    $scope.programName = "";
+    $scope.numPrograms = "";
+
+    $scope.getNumPrograms = function() {
+        ProgramsService.getNumPrograms().then(null, null, function(data) {
+            $scope.numPrograms = data;
+        });
+    };
+
+    $scope.getPrograms = function() {
+        ProgramsService.getPrograms().then(null, null, function(data) {
+            $scope.result = data;
+        });
+    };
 
     $scope.search = function() {
-        ProgramsService.getProgram($scope.program_id).then(null, null, function(data) {
-            console.log(data);
+        ProgramsService.getProgram($scope.programId).then(null, null, function(data) {
             $scope.result = data;
         });
     };
 
-    $scope.search_by_name = function() {
-        ProgramsService.getProgramByName($scope.program_name).then(null, null, function(data) {
-            console.log(data);
+    $scope.searchByName = function() {
+        ProgramsService.getProgramByName($scope.programName).then(null, null, function(data) {
             $scope.result = data;
         });
     };
+
+    $scope.getNumPrograms();
 
 });

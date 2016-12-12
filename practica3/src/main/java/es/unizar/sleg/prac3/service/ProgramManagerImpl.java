@@ -52,7 +52,7 @@ public class ProgramManagerImpl implements ProgramManager {
         Thread.sleep(3000);
     }
 
-    public String readScreen() throws InterruptedException, IOException {
+    String readScreen() throws InterruptedException, IOException {
         File capture = captureScreen();
         if (capture != null) {
             try {
@@ -95,14 +95,14 @@ public class ProgramManagerImpl implements ProgramManager {
         }
     }
 
-    protected void goToProgramList(int page) throws InterruptedException {
+    void goToProgramList(int page) throws InterruptedException {
         keySequence(new int[]{ KeyEvent.VK_6, KeyEvent.VK_ENTER });
         while (page-- > 0) {
             keySequence(new int[]{ KeyEvent.VK_SPACE });
         }
     }
 
-    protected void pressEnter() throws InterruptedException {
+    void pressEnter() throws InterruptedException {
         keySequence(new int[]{ KeyEvent.VK_ENTER });
     }
 
@@ -211,7 +211,8 @@ public class ProgramManagerImpl implements ProgramManager {
                     String[] results = result.split("\n");
                     for (int i = 1; i < results.length - 1; i++) {
                         Program p = Program.parseProgram2(results[i]);
-                        programs.add(p);
+                        if (p != null)
+                            programs.add(p);
                     }
                     keySequence(keysNext);
                 } else {

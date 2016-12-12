@@ -1,6 +1,15 @@
 angular.module("Prac3SLEGApp.services").service("ProgramsService", function($q, $http) {
     var service = {}, listener = $q.defer();
 
+    service.getNumPrograms = function() {
+        $http.get('http://localhost:8080/programs/count').then(function(res) {
+            listener.notify(res.data);
+        }, function(err) {
+            console.log(err);
+        });
+        return listener.promise;
+    };
+
     service.getPrograms = function() {
         $http.get('http://localhost:8080/programs').then(function(res) {
             listener.notify(res.data);

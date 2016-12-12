@@ -10,43 +10,49 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 public class ProgramController {
 
+    private static final Logger logger = Logger.getLogger(ProgramController.class.getName());
+
     @Autowired
     private ProgramManager programManager;
 
+    private void sleep() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
+
     @GetMapping("/programs/count")
     public ResponseEntity<Integer> getProgramCount() {
+        sleep();        // Give time to switch windows when developing in one machine
         int numPrograms = programManager.getNumPrograms();
         return new ResponseEntity<>(numPrograms, HttpStatus.OK);
     }
 
     @GetMapping("/programs")
     public ResponseEntity<List<Program>> getPrograms() {
+        sleep();        // Give time to switch windows when developing in one machine
         List<Program> programs = programManager.getPrograms();
         return new ResponseEntity<>(programs, HttpStatus.OK);
     }
 
     @GetMapping("/program/{id}")
     public ResponseEntity<Program> getProgram(@PathVariable("id") Integer id) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep();        // Give time to switch windows when developing in one machine
         Program p = programManager.getProgram(id);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
 
     @GetMapping("/program/name/{name}")
     public ResponseEntity<Program> getProgram(@PathVariable("name") String name) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep();        // Give time to switch windows when developing in one machine
         Program p = programManager.getProgram(name);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
