@@ -11,6 +11,7 @@ public class X3270Terminal {
     private X3270TerminalState state = X3270TerminalState.DISCONNECTED;
 
     public X3270Terminal() throws IOException, InterruptedException {
+        // TODO: using x3270 for testing, for "production" use s3270
         PROCESS = Runtime.getRuntime().exec("x3270 -scriptport " + S3270_PORT);
         Thread.sleep(1000);
     }
@@ -101,6 +102,10 @@ public class X3270Terminal {
     public String snapshot() throws IOException, InterruptedException {
         executeCommand("Snap");
         return executeCommand("Snap Ascii");
+    }
+
+    public boolean isConnected() {
+        return state != X3270TerminalState.DISCONNECTED;
     }
 
     private enum X3270TerminalState {
