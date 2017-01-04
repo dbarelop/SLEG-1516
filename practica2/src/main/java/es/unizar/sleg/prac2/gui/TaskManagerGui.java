@@ -60,10 +60,10 @@ public class TaskManagerGui extends JFrame {
                         connectMenuItem.setEnabled(false);
                         disconnectMenuItem.setEnabled(true);
                     } else {
-                        JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error connecting", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (IOException | InterruptedException e1) {
-                    JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error connecting", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -73,7 +73,7 @@ public class TaskManagerGui extends JFrame {
                 connectMenuItem.setEnabled(true);
                 disconnectMenuItem.setEnabled(false);
             } catch (IOException | InterruptedException e1) {
-                JOptionPane.showMessageDialog(null, "There was an error when disconnecting from the mainframe", "Error connecting", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "There was an error when disconnecting from the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         exitMenuItem.addActionListener(e -> {

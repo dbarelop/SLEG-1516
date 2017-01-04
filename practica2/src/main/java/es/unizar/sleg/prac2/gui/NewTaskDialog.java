@@ -7,6 +7,7 @@ import es.unizar.sleg.prac2.x3270.X3270Terminal;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.*;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,14 +59,19 @@ public class NewTaskDialog extends JDialog {
             switch (taskTypeComboBox.getSelectedIndex()) {
                 case 0:
                     GeneralTask generalTask = new GeneralTask(DATE_FORMAT.parse(dateTextField.getText()), descriptionTextArea.getText());
+                    terminal.createGeneralTask(generalTask);
                     break;
                 case 1:
                     SpecificTask specificTask = new SpecificTask(DATE_FORMAT.parse(dateTextField.getText()), descriptionTextArea.getText(), nameTextField.getText());
+                    terminal.createSpecificTask(specificTask);
                     break;
             }
             dispose();
         } catch (ParseException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Invalid date format", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (InterruptedException | IOException e) {
+            JOptionPane.showMessageDialog(null, "There was an error creating the task", "Error", JOptionPane.ERROR_MESSAGE);
+            dispose();
         }
     }
 

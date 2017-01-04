@@ -1,6 +1,13 @@
 package es.unizar.sleg.prac2.x3270;
 
+import es.unizar.sleg.prac2.task.GeneralTask;
+import es.unizar.sleg.prac2.task.SpecificTask;
+
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class X3270Terminal {
 
@@ -39,6 +46,11 @@ public class X3270Terminal {
             builder.append(System.getProperty("line.separator"));
         }
         return builder.toString();
+    }
+
+    private String snapshot() throws IOException, InterruptedException {
+        executeCommand("Snap");
+        return executeCommand("Snap Ascii");
     }
 
     public boolean connect() throws IOException, InterruptedException {
@@ -92,16 +104,77 @@ public class X3270Terminal {
         if (state == X3270TerminalState.MAIN_MENU) {
             executeCommand("String(\"" + LEGACY_APP + "\")");
             executeCommand("Enter");
-            Thread.sleep(2000);
-            state = X3270TerminalState.LEGACY_APP;
+            //Thread.sleep(500);
+            state = X3270TerminalState.LEGACY_APP_MAIN_MENU;
             return true;
         }
         return false;
     }
 
-    public String snapshot() throws IOException, InterruptedException {
-        executeCommand("Snap");
-        return executeCommand("Snap Ascii");
+    public void createGeneralTask(GeneralTask task) throws IOException, InterruptedException {
+        if (state == X3270TerminalState.LEGACY_APP_MAIN_MENU) {
+            executeCommand("String(\"1\")");    // 1. ASSIGN TASKS
+            executeCommand("Enter");
+            executeCommand("String(\"1\")");    // 1. GENERAL TASK
+            executeCommand("Enter");
+            DateFormat df = new SimpleDateFormat("ddMM");
+            executeCommand("String(\"" + df.format(task.getDate()) + "\")");    // ENTER DATE (DDMM)
+            executeCommand("Enter");
+            executeCommand("String(\"" + task.getDescription() + "\")");        // ENTER DESCRIPTION
+            executeCommand("Enter");
+            // Returns to main menu
+        }
+    }
+
+    public void createSpecificTask(SpecificTask task) throws IOException, InterruptedException {
+        if (state == X3270TerminalState.LEGACY_APP_MAIN_MENU) {
+            executeCommand("String(\"1\")");    // 1. ASSIGN TASKS
+            executeCommand("Enter");
+            executeCommand("String(\"2\")");    // 2. SPECIFIC TASK
+            executeCommand("Enter");
+            DateFormat df = new SimpleDateFormat("ddMM");
+            executeCommand("String(\"" + df.format(task.getDate()) + "\")");    // ENTER DATE (DDMM)
+            executeCommand("Enter");
+            executeCommand("String(\"" + task.getName() + "\")");               // ENTER NAME
+            executeCommand("Enter");
+            executeCommand("String(\"" + task.getDescription() + "\")");        // ENTER DESCRIPTION
+            executeCommand("Enter");
+            // Returns to main menu
+        }
+    }
+
+    public List<GeneralTask> getGeneralTasks() throws IOException, InterruptedException {
+        if (state == X3270TerminalState.LEGACY_APP_MAIN_MENU) {
+            executeCommand("String(\"2\")");    // 2. VIEW TASKS
+            executeCommand("Enter");
+            executeCommand("String(\"1\")");    // 1. GENERAL TASKS
+            executeCommand("Enter");
+            String snap = snapshot();
+            // Return to main menu
+            executeCommand("String(\"3\")");    // 3. MAIN MENU
+            executeCommand("Enter");
+            List<GeneralTask> tasks = new ArrayList<>();
+            // TODO: parse snapshot
+            return tasks;
+        }
+        return null;
+    }
+
+    public List<SpecificTask> getSpecificTasks() throws IOException, InterruptedException {
+        if (state == X3270TerminalState.LEGACY_APP_MAIN_MENU) {
+            executeCommand("String(\"2\")");    // 2. VIEW TASKS
+            executeCommand("Enter");
+            executeCommand("String(\"2\")");    // 2. SPECIFIC TASKS
+            executeCommand("Enter");
+            String snap = snapshot();
+            // Return to main menu
+            executeCommand("String(\"3\")");    // 3. MAIN MENU
+            executeCommand("Enter");
+            List<SpecificTask> tasks = new ArrayList<>();
+            // TODO: parse snapshot
+            return tasks;
+        }
+        return null;
     }
 
     public boolean isConnected() {
@@ -114,6 +187,13 @@ public class X3270Terminal {
         LOGIN_SCREEN,
         LOGGED_IN_SCREEN,
         MAIN_MENU,
-        LEGACY_APP
+        LEGACY_APP_MAIN_MENU,
+        LEGACY_APP_ASSIGN_TASKS,
+        LEGACY_APP_GENERAL_TASK_DATE,
+        LEGACY_APP_GENERAL_TASK_DESCRIPTION,
+        LEGACY_APP_SPECIFIC_TASK_DATE,
+        LEGACY_APP_SPECIFIC_TASK_NAME,
+        LEGACY_APP_SPECIFIC_TASK_DESCRIPTION,
+        LEGACY_APP_VIEW_TASKS
     }
 }
