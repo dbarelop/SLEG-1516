@@ -19,6 +19,8 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         X3270Terminal terminal = new X3270Terminal();
         terminal.connect();
+        terminal.login("GRUPO_11", "");
+        terminal.startLegacyApplication();
         String snap = terminal.snapshot().replaceAll("(?m)^\\s+$", "\n");
         System.out.println(snap);
         terminal.disconnect();
