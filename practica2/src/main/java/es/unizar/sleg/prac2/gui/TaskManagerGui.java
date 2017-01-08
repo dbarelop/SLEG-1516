@@ -1,10 +1,15 @@
 package es.unizar.sleg.prac2.gui;
 
+import es.unizar.sleg.prac2.task.GeneralTask;
+import es.unizar.sleg.prac2.task.SpecificTask;
 import es.unizar.sleg.prac2.x3270.X3270Terminal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.IOException;
+import java.util.List;
 
 public class TaskManagerGui extends JFrame {
     private X3270Terminal terminal;
@@ -18,6 +23,9 @@ public class TaskManagerGui extends JFrame {
     private JMenuBar menuBar;
     private JTextField userTextField;
     private JPasswordField passwordField;
+
+    private List<GeneralTask> generalTasks;
+    private List<SpecificTask> specificTasks;
 
     public TaskManagerGui(X3270Terminal terminal) {
         this.terminal = terminal;
@@ -35,6 +43,14 @@ public class TaskManagerGui extends JFrame {
         });
 
         exitButton.addActionListener(e -> dispose());
+        refreshButton.addActionListener(e -> {
+            try {
+                generalTasks = terminal.getGeneralTasks();
+                specificTasks = terminal.getSpecificTasks();
+            } catch (InterruptedException | IOException e1) {
+                JOptionPane.showMessageDialog(null, "There was an error fetching the tasks from the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
     }
 
     private void createMenuBar() {
@@ -59,6 +75,8 @@ public class TaskManagerGui extends JFrame {
                         terminal.startLegacyApplication();
                         connectMenuItem.setEnabled(false);
                         disconnectMenuItem.setEnabled(true);
+                        refreshButton.setEnabled(true);
+                        newTaskButton.setEnabled(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -72,6 +90,8 @@ public class TaskManagerGui extends JFrame {
                 terminal.disconnect();
                 connectMenuItem.setEnabled(true);
                 disconnectMenuItem.setEnabled(false);
+                refreshButton.setEnabled(false);
+                newTaskButton.setEnabled(false);
             } catch (IOException | InterruptedException e1) {
                 JOptionPane.showMessageDialog(null, "There was an error when disconnecting from the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
             }

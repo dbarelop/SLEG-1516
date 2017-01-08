@@ -5,9 +5,13 @@ import es.unizar.sleg.prac2.task.SpecificTask;
 
 import java.io.*;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class X3270Terminal {
 
@@ -44,6 +48,15 @@ public class X3270Terminal {
         while ((line = reader.readLine()) != null) {
             builder.append(line);
             builder.append(System.getProperty("line.separator"));
+        }
+        if (state == X3270TerminalState.LEGACY_APP && cmd.equalsIgnoreCase("enter")) {
+            // If the command is Enter and the terminal has reached the bottom
+            // of the screen, issue another Enter
+            String snap = snapshot();
+            String[] lines = snap.split("\n");
+            if (!lines[lines.length - 2].trim().isEmpty()) {
+                return executeCommand(cmd);
+            }
         }
         return builder.toString();
     }
@@ -105,14 +118,14 @@ public class X3270Terminal {
             executeCommand("String(\"" + LEGACY_APP + "\")");
             executeCommand("Enter");
             //Thread.sleep(500);
-            state = X3270TerminalState.LEGACY_APP_MAIN_MENU;
+            state = X3270TerminalState.LEGACY_APP;
             return true;
         }
         return false;
     }
 
     public void createGeneralTask(GeneralTask task) throws IOException, InterruptedException {
-        if (state == X3270TerminalState.LEGACY_APP_MAIN_MENU) {
+        if (state == X3270TerminalState.LEGACY_APP) {
             executeCommand("String(\"1\")");    // 1. ASSIGN TASKS
             executeCommand("Enter");
             executeCommand("String(\"1\")");    // 1. GENERAL TASK
@@ -122,12 +135,14 @@ public class X3270Terminal {
             executeCommand("Enter");
             executeCommand("String(\"" + task.getDescription() + "\")");        // ENTER DESCRIPTION
             executeCommand("Enter");
-            // Returns to main menu
+            // Return to main menu
+            executeCommand("String(\"3\")");
+            executeCommand("Enter");
         }
     }
 
     public void createSpecificTask(SpecificTask task) throws IOException, InterruptedException {
-        if (state == X3270TerminalState.LEGACY_APP_MAIN_MENU) {
+        if (state == X3270TerminalState.LEGACY_APP) {
             executeCommand("String(\"1\")");    // 1. ASSIGN TASKS
             executeCommand("Enter");
             executeCommand("String(\"2\")");    // 2. SPECIFIC TASK
@@ -139,12 +154,14 @@ public class X3270Terminal {
             executeCommand("Enter");
             executeCommand("String(\"" + task.getDescription() + "\")");        // ENTER DESCRIPTION
             executeCommand("Enter");
-            // Returns to main menu
+            // Return to main menu
+            executeCommand("String(\"3\")");
+            executeCommand("Enter");
         }
     }
 
     public List<GeneralTask> getGeneralTasks() throws IOException, InterruptedException {
-        if (state == X3270TerminalState.LEGACY_APP_MAIN_MENU) {
+        if (state == X3270TerminalState.LEGACY_APP) {
             executeCommand("String(\"2\")");    // 2. VIEW TASKS
             executeCommand("Enter");
             executeCommand("String(\"1\")");    // 1. GENERAL TASKS
@@ -161,7 +178,7 @@ public class X3270Terminal {
     }
 
     public List<SpecificTask> getSpecificTasks() throws IOException, InterruptedException {
-        if (state == X3270TerminalState.LEGACY_APP_MAIN_MENU) {
+        if (state == X3270TerminalState.LEGACY_APP) {
             executeCommand("String(\"2\")");    // 2. VIEW TASKS
             executeCommand("Enter");
             executeCommand("String(\"2\")");    // 2. SPECIFIC TASKS
@@ -187,13 +204,6 @@ public class X3270Terminal {
         LOGIN_SCREEN,
         LOGGED_IN_SCREEN,
         MAIN_MENU,
-        LEGACY_APP_MAIN_MENU,
-        LEGACY_APP_ASSIGN_TASKS,
-        LEGACY_APP_GENERAL_TASK_DATE,
-        LEGACY_APP_GENERAL_TASK_DESCRIPTION,
-        LEGACY_APP_SPECIFIC_TASK_DATE,
-        LEGACY_APP_SPECIFIC_TASK_NAME,
-        LEGACY_APP_SPECIFIC_TASK_DESCRIPTION,
-        LEGACY_APP_VIEW_TASKS
+        LEGACY_APP
     }
 }
