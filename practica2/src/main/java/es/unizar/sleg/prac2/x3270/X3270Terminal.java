@@ -171,7 +171,20 @@ public class X3270Terminal {
             executeCommand("String(\"3\")");    // 3. MAIN MENU
             executeCommand("Enter");
             List<GeneralTask> tasks = new ArrayList<>();
-            // TODO: parse snapshot
+            Pattern p = Pattern.compile("TASK (\\d+): GENERAL (\\d)+ ----- (.+)\\n");
+            Matcher m = p.matcher(snap);
+            DateFormat df = new SimpleDateFormat("ddMM");
+            while (m.find()) {
+                int id = Integer.parseInt(m.group(3));
+                Date date = null;
+                try {
+                    date = df.parse(m.group(4));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String description = m.group(5).trim();
+                tasks.add(new GeneralTask(id, date, description));
+            }
             return tasks;
         }
         return null;
