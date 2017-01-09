@@ -35,7 +35,7 @@ public class X3270Terminal {
     private String executeCommand(String cmd) throws IOException, InterruptedException {
         Process p = Runtime.getRuntime().exec(new String[] { "x3270if", "-t", Integer.toString(S3270_PORT), cmd });
         p.waitFor();
-        Thread.sleep(500);
+        Thread.sleep(100);
         BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
         BufferedReader errorReader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
         String err = errorReader.readLine();
@@ -167,22 +167,29 @@ public class X3270Terminal {
             executeCommand("String(\"1\")");    // 1. GENERAL TASKS
             executeCommand("Enter");
             String snap = snapshot();
+            String info = snap;
+            while (snap.contains("More...")) {
+                executeCommand("Enter");
+                snap = snapshot();
+                info += snap;
+            }
             // Return to main menu
             executeCommand("String(\"3\")");    // 3. MAIN MENU
             executeCommand("Enter");
             List<GeneralTask> tasks = new ArrayList<>();
-            Pattern p = Pattern.compile("TASK (\\d+): GENERAL (\\d)+ ----- (.+)\\n");
-            Matcher m = p.matcher(snap);
+            Pattern p = Pattern.compile("TASK (\\d+): GENERAL (\\d+) ----- (.+)\\n");
+            Matcher m = p.matcher(info);
             DateFormat df = new SimpleDateFormat("ddMM");
             while (m.find()) {
-                int id = Integer.parseInt(m.group(3));
+                int id = Integer.parseInt(m.group(1));
                 Date date = null;
                 try {
-                    date = df.parse(m.group(4));
+                    date = df.parse(m.group(2));
                 } catch (ParseException e) {
+                    // TODO: handle exception
                     e.printStackTrace();
                 }
-                String description = m.group(5).trim();
+                String description = m.group(3).trim();
                 tasks.add(new GeneralTask(id, date, description));
             }
             return tasks;
