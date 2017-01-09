@@ -177,7 +177,7 @@ public class X3270Terminal {
             executeCommand("String(\"3\")");    // 3. MAIN MENU
             executeCommand("Enter");
             List<GeneralTask> tasks = new ArrayList<>();
-            Pattern p = Pattern.compile("TASK (\\d+): GENERAL (\\d+) ----- (.+)\\n");
+            Pattern p = Pattern.compile("TASK (\\d+): GENERAL (\\d+) ----- ([^\\n]+)\\n");
             Matcher m = p.matcher(info);
             DateFormat df = new SimpleDateFormat("ddMM");
             while (m.find()) {
@@ -204,11 +204,34 @@ public class X3270Terminal {
             executeCommand("String(\"2\")");    // 2. SPECIFIC TASKS
             executeCommand("Enter");
             String snap = snapshot();
+            String info = snap;
+            while (snap.contains("More...")) {
+                executeCommand("Enter");
+                snap = snapshot();
+                info += snap;
+            }
             // Return to main menu
             executeCommand("String(\"3\")");    // 3. MAIN MENU
             executeCommand("Enter");
             List<SpecificTask> tasks = new ArrayList<>();
-            // TODO: parse snapshot
+            // TODO: will fail for names with spaces (no way to fix it)
+            // TODO: error parsing more than one task! (program error??)
+            Pattern p = Pattern.compile("TASK (\\d+): SPECIFIC (\\d+) ([^\\n]+) ([^ \\n]+) *\\n");
+            Matcher m = p.matcher(info);
+            DateFormat df = new SimpleDateFormat("ddMM");
+            while (m.find()) {
+                int id = Integer.parseInt(m.group(1));
+                Date date = null;
+                try {
+                    date = df.parse(m.group(2));
+                } catch (ParseException e) {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
+                String description = m.group(3);
+                String name = m.group(4);
+                tasks.add(new SpecificTask(id, date, name, description));
+            }
             return tasks;
         }
         return null;
