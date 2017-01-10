@@ -15,7 +15,7 @@
         <properties/>
         <border type="none" title="General tasks"/>
         <children>
-          <component id="e6c84" class="javax.swing.JTable" binding="table1" default-binding="true">
+          <component id="e6c84" class="javax.swing.JTable" binding="generalTasksTable">
             <constraints/>
             <properties/>
           </component>
@@ -69,7 +69,7 @@
         <properties/>
         <border type="none" title="Specific tasks"/>
         <children>
-          <component id="983b5" class="javax.swing.JTable" binding="table2" default-binding="true">
+          <component id="983b5" class="javax.swing.JTable" binding="specificTasksTable">
             <constraints/>
             <properties/>
           </component>

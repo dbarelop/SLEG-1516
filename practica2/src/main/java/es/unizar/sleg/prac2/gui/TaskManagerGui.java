@@ -5,10 +5,11 @@ import es.unizar.sleg.prac2.task.SpecificTask;
 import es.unizar.sleg.prac2.x3270.X3270Terminal;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TaskManagerGui extends JFrame {
@@ -17,15 +18,15 @@ public class TaskManagerGui extends JFrame {
     private JButton refreshButton;
     private JButton newTaskButton;
     private JButton exitButton;
-    private JTable table1;
-    private JTable table2;
+    private JTable generalTasksTable;
+    private JTable specificTasksTable;
     private JPanel mainPanel;
     private JMenuBar menuBar;
     private JTextField userTextField;
     private JPasswordField passwordField;
 
-    private List<GeneralTask> generalTasks;
-    private List<SpecificTask> specificTasks;
+    private List<GeneralTask> generalTasks = new ArrayList<>();
+    private List<SpecificTask> specificTasks = new ArrayList<>();
 
     public TaskManagerGui(X3270Terminal terminal) {
         this.terminal = terminal;
@@ -36,17 +37,27 @@ public class TaskManagerGui extends JFrame {
 
         createMenuBar();
 
+        generalTasksTable.setModel(new GeneralTaskTableModel(generalTasks));
+        specificTasksTable.setModel(new SpecificTaskTableModel(specificTasks));
+
         newTaskButton.addActionListener(e -> {
             JDialog newTaskDialog = new NewTaskDialog(terminal);
             newTaskDialog.pack();
             newTaskDialog.setVisible(true);
         });
 
-        exitButton.addActionListener(e -> dispose());
+        exitButton.addActionListener(e -> {
+            terminal.close();
+            dispose();
+        });
+
         refreshButton.addActionListener(e -> {
             try {
-                generalTasks = terminal.getGeneralTasks();
-                specificTasks = terminal.getSpecificTasks();
+                generalTasks.clear();
+                specificTasks.clear();
+                generalTasks.addAll(terminal.getGeneralTasks());
+                specificTasks.addAll(terminal.getSpecificTasks());
+                updateTables();
             } catch (InterruptedException | IOException e1) {
                 JOptionPane.showMessageDialog(null, "There was an error fetching the tasks from the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -108,6 +119,11 @@ public class TaskManagerGui extends JFrame {
         setJMenuBar(menuBar);
     }
 
+    private void updateTables() {
+        ((AbstractTableModel) generalTasksTable.getModel()).fireTableDataChanged();
+        ((AbstractTableModel) specificTasksTable.getModel()).fireTableDataChanged();
+    }
+
     private JPanel getLoginPanel() {
         JLabel userLabel = new JLabel("Username");
         JLabel passwordLabel = new JLabel("Password");
@@ -121,4 +137,102 @@ public class TaskManagerGui extends JFrame {
         loginPanel.add(passwordField);
         return loginPanel;
     }
+
+    private class GeneralTaskTableModel extends AbstractTableModel {
+
+        private final String[] COLUMN_NAMES = { "#", "Fecha", "Descripción" };
+        private final List<GeneralTask> generalTasks;
+
+        private GeneralTaskTableModel(List<GeneralTask> generalTasks) {
+            this.generalTasks = generalTasks;
+        }
+
+        @Override
+        public int getRowCount() {
+            return generalTasks.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 3;
+        }
+
+        @Override
+        public String getColumnName(int columnIndex) {
+            return COLUMN_NAMES[columnIndex];
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            switch (columnIndex) {
+                case 0: return Integer.class;
+                case 1: return Date.class;
+                case 2: return String.class;
+                default: return null;
+            }
+        }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            switch (columnIndex) {
+                case 0: return generalTasks.get(rowIndex).getId();
+                case 1: return generalTasks.get(rowIndex).getDate();
+                case 2: return generalTasks.get(rowIndex).getDescription();
+                default: return null;
+            }
+        }
+    }
+
+    private class SpecificTaskTableModel extends AbstractTableModel {
+
+        private final String[] COLUMN_NAMES = { "#", "Fecha", "Nombre", "Descripción" };
+        private final List<SpecificTask> specificTasks;
+
+        private SpecificTaskTableModel(List<SpecificTask> specificTasks) {
+            this.specificTasks = specificTasks;
+        }
+
+        @Override
+        public int getRowCount() {
+            return specificTasks.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 4;
+        }
+
+        @Override
+        public String getColumnName(int columnIndex) {
+            return COLUMN_NAMES[columnIndex];
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            switch (columnIndex) {
+                case 0: return Integer.class;
+                case 1: return Date.class;
+                case 2: return String.class;
+                case 3: return String.class;
+                default: return null;
+            }
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            switch (columnIndex) {
+                case 0: return specificTasks.get(rowIndex).getId();
+                case 1: return specificTasks.get(rowIndex).getDate();
+                case 2: return specificTasks.get(rowIndex).getName();
+                case 3: return specificTasks.get(rowIndex).getDescription();
+                default: return null;
+            }
+        }
+    }
+
 }
