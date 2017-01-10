@@ -1,5 +1,6 @@
 package es.unizar.sleg.prac2.gui;
 
+import com.sun.java.swing.ui.StatusBar;
 import es.unizar.sleg.prac2.task.GeneralTask;
 import es.unizar.sleg.prac2.task.SpecificTask;
 import es.unizar.sleg.prac2.x3270.X3270Terminal;
@@ -21,9 +22,15 @@ public class TaskManagerGui extends JFrame {
     private JTable generalTasksTable;
     private JTable specificTasksTable;
     private JPanel mainPanel;
+    private JPanel statusBarPanel;
+    private StatusBar statusBar;
     private JMenuBar menuBar;
     private JTextField userTextField;
     private JPasswordField passwordField;
+    private JMenu file;
+    private JMenuItem connectMenuItem;
+    private JMenuItem disconnectMenuItem;
+    private JMenuItem exitMenuItem;
 
     private List<GeneralTask> generalTasks = new ArrayList<>();
     private List<SpecificTask> specificTasks = new ArrayList<>();
@@ -34,6 +41,7 @@ public class TaskManagerGui extends JFrame {
         setTitle("MUSIC/SP Task Manager");
         setContentPane(mainPanel);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        statusBar.setMessage("Ready");
 
         createMenuBar();
 
@@ -51,62 +59,20 @@ public class TaskManagerGui extends JFrame {
             dispose();
         });
 
-        refreshButton.addActionListener(e -> {
-            try {
-                generalTasks.clear();
-                specificTasks.clear();
-                generalTasks.addAll(terminal.getGeneralTasks());
-                specificTasks.addAll(terminal.getSpecificTasks());
-                updateTables();
-            } catch (InterruptedException | IOException e1) {
-                JOptionPane.showMessageDialog(null, "There was an error fetching the tasks from the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+        refreshButton.addActionListener(e -> refreshTasks());
     }
 
     private void createMenuBar() {
         menuBar = new JMenuBar();
-        JMenu file = new JMenu("File");
-        JMenuItem connectMenuItem = new JMenuItem("Connect");
-        JMenuItem disconnectMenuItem = new JMenuItem("Disconnect");
-        JMenuItem exitMenuItem = new JMenuItem("Exit");
+        file = new JMenu("File");
+        connectMenuItem = new JMenuItem("Connect");
+        disconnectMenuItem = new JMenuItem("Disconnect");
+        exitMenuItem = new JMenuItem("Exit");
         connectMenuItem.setEnabled(true);
         disconnectMenuItem.setEnabled(false);
 
-        connectMenuItem.addActionListener(e -> {
-            String[] options = new String[]{ "Login", "Cancel" };
-            JPanel loginPanel = getLoginPanel();
-            int option = JOptionPane.showOptionDialog(null, loginPanel, "Login", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-            if (option == 0) {
-                try {
-                    String user = userTextField.getText();
-                    String password = new String(passwordField.getPassword());
-                    if (terminal.connect()) {
-                        terminal.login(user, password);
-                        terminal.startLegacyApplication();
-                        connectMenuItem.setEnabled(false);
-                        disconnectMenuItem.setEnabled(true);
-                        refreshButton.setEnabled(true);
-                        newTaskButton.setEnabled(true);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (IOException | InterruptedException e1) {
-                    JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-        disconnectMenuItem.addActionListener(e -> {
-            try {
-                terminal.disconnect();
-                connectMenuItem.setEnabled(true);
-                disconnectMenuItem.setEnabled(false);
-                refreshButton.setEnabled(false);
-                newTaskButton.setEnabled(false);
-            } catch (IOException | InterruptedException e1) {
-                JOptionPane.showMessageDialog(null, "There was an error when disconnecting from the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+        connectMenuItem.addActionListener(e -> connect());
+        disconnectMenuItem.addActionListener(e -> disconnect());
         exitMenuItem.addActionListener(e -> {
             terminal.close();
             System.exit(0);
@@ -117,11 +83,6 @@ public class TaskManagerGui extends JFrame {
         file.add(exitMenuItem);
         menuBar.add(file);
         setJMenuBar(menuBar);
-    }
-
-    private void updateTables() {
-        ((AbstractTableModel) generalTasksTable.getModel()).fireTableDataChanged();
-        ((AbstractTableModel) specificTasksTable.getModel()).fireTableDataChanged();
     }
 
     private JPanel getLoginPanel() {
@@ -136,6 +97,74 @@ public class TaskManagerGui extends JFrame {
         loginPanel.add(passwordLabel);
         loginPanel.add(passwordField);
         return loginPanel;
+    }
+
+    private void createUIComponents() {
+        statusBarPanel = new StatusBar();
+        // workaround
+        statusBar = (StatusBar) statusBarPanel;
+    }
+
+    private void connect() {
+        String[] options = new String[]{ "Login", "Cancel" };
+        JPanel loginPanel = getLoginPanel();
+        int option = JOptionPane.showOptionDialog(null, loginPanel, "Login", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        if (option == 0) {
+            connectMenuItem.setEnabled(false);
+            statusBar.setMessage("Logging in...");
+            new Thread(() -> {
+                try {
+                    String user = userTextField.getText();
+                    String password = new String(passwordField.getPassword());
+                    if (terminal.connect()) {
+                        terminal.login(user, password);
+                        terminal.startLegacyApplication();
+                        disconnectMenuItem.setEnabled(true);
+                        refreshButton.setEnabled(true);
+                        newTaskButton.setEnabled(true);
+                        statusBar.setMessage("Ready");
+                    } else {
+                        connectMenuItem.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (IOException | InterruptedException e1) {
+                    JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }).start();
+        }
+    }
+
+    private void disconnect() {
+        try {
+            terminal.disconnect();
+            connectMenuItem.setEnabled(true);
+            disconnectMenuItem.setEnabled(false);
+            refreshButton.setEnabled(false);
+            newTaskButton.setEnabled(false);
+        } catch (IOException | InterruptedException e1) {
+            JOptionPane.showMessageDialog(null, "There was an error when disconnecting from the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void refreshTasks() {
+        statusBar.setMessage("Refreshing tasks...");
+        refreshButton.setEnabled(false);
+        newTaskButton.setEnabled(false);
+        new Thread(() -> {
+            try {
+                generalTasks.clear();
+                specificTasks.clear();
+                generalTasks.addAll(terminal.getGeneralTasks());
+                specificTasks.addAll(terminal.getSpecificTasks());
+                ((AbstractTableModel) generalTasksTable.getModel()).fireTableDataChanged();
+                ((AbstractTableModel) specificTasksTable.getModel()).fireTableDataChanged();
+                statusBar.setMessage("Ready");
+                refreshButton.setEnabled(true);
+                newTaskButton.setEnabled(true);
+            } catch (InterruptedException | IOException e1) {
+                JOptionPane.showMessageDialog(null, "There was an error fetching the tasks from the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }).start();
     }
 
     private class GeneralTaskTableModel extends AbstractTableModel {
