@@ -33,6 +33,7 @@ dependencies {
 	// Modify JAR file in Gradle's cache: ~/.gradle/caches/modules-2/files-2.1/net.sourceforge.tess4j/tess4j/3.2.1/*/tess4j-3.2.1.jar
 	compile('net.sourceforge.tess4j:tess4j:3.2.1')
 	compile('org.webjars:bootstrap:3.3.7-1')
+	compile('org.webjars:jquery:3.1.1-1')
 	compile('org.webjars.bower:angular:1.6.0')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
