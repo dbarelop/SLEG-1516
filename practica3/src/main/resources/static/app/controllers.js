@@ -5,6 +5,7 @@ angular.module("Prac3SLEGApp.controllers", []).controller("ProgramsCtrl", functi
     $scope.programId = "";
     $scope.programName = "";
     $scope.numPrograms = "";
+    $scope.tape = "";
 
     $scope.getNumPrograms = function() {
         $scope.dosbox = true;
@@ -20,7 +21,7 @@ angular.module("Prac3SLEGApp.controllers", []).controller("ProgramsCtrl", functi
     $scope.getPrograms = function() {
         $scope.dosbox = true;
         ProgramsService.getPrograms().then(function(data) {
-            $scope.result = data;
+            $scope.results = data;
         }, function(err) {
             console.log(err);
         }).finally(function() {
@@ -48,6 +49,17 @@ angular.module("Prac3SLEGApp.controllers", []).controller("ProgramsCtrl", functi
         }).finally(function() {
             $scope.dosbox = false;
         });
+    };
+
+    $scope.searchByTape = function() {
+        $scope.dosbox = true;
+        ProgramsService.getProgramByTape($scope.tape).then(function(data) {
+            $scope.results = data;
+        }, function(err) {
+            console.log(err);
+        }).finally(function() {
+            $scope.dosbox = false;
+        })
     };
 
     $scope.getNumPrograms();

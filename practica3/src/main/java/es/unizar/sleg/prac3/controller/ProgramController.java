@@ -56,4 +56,11 @@ public class ProgramController {
         Program p = programManager.getProgram(name);
         return new ResponseEntity<>(p, HttpStatus.OK);
     }
+
+    @GetMapping("/programs/tape/{tape}")
+    public ResponseEntity<List<Program>> getPrograms(@PathVariable("tape") String tape) {
+        sleep();        // Give time to switch windows when developing in one machine
+        List<Program> programs = programManager.getPrograms(tape);
+        return new ResponseEntity<>(programs, HttpStatus.OK);
+    }
 }

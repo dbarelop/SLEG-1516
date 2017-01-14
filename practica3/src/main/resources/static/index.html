@@ -48,13 +48,20 @@
                     <button id="search-name-button" class="btn btn-lg btn-primary" type="button" ng-click="searchByName()">Search</button>
                 </span>
             </div>
+            <br />
+            <div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+                <input id="search-tape" ng-model="tape" type="text" class="center-block form-control input-lg" placeholder="Tape" />
+                <span class="input-group-btn">
+                    <button id="search-tape-button" class="btn btn-lg btn-primary" type="button" ng-click="searchByTape()">Search</button>
+                </span>
+            </div>
         </div>
     </div>
     <br />
-    <div class="row">
+    <div class="row" ng-if="result">
         <div class="col-lg-12 text-center">
             <div class="col-sm-offset-2 col-sm-8 text-center">
-                <div class="panel panel-default" ng-if="result">
+                <div class="panel panel-default">
                     <div class="panel-heading">{{result.name}}</div>
                     <div class="panel-body">
                         <ul class="list-group">
@@ -67,6 +74,31 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <br />
+    <div class="row" ng-if="results">
+        <div class="col-lg-12 text-center">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Tape</th>
+                    <th>Register</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="p in results track by $index">
+                    <td>{{p.id}}</td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.type}}</td>
+                    <td>{{p.tape}}</td>
+                    <td>{{p.register}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

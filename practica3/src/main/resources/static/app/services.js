@@ -41,5 +41,15 @@ angular.module("Prac3SLEGApp.services").service("ProgramsService", function($q, 
         return listener.promise;
     };
 
+    service.getProgramByTape = function(tape) {
+        var listener = $q.defer();
+        $http.get('http://localhost:8080/programs/tape/' + tape).then(function(res) {
+            listener.resolve(res.data);
+        }, function(err) {
+            listener.reject(err);
+        });
+        return listener.promise;
+    };
+
     return service;
 });

@@ -12,11 +12,13 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 public class ProgramManagerImpl implements ProgramManager {
@@ -226,5 +228,12 @@ public class ProgramManagerImpl implements ProgramManager {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
         return null;
+    }
+
+    @Override
+    public List<Program> getPrograms(String tape) {
+        logger.fine("Searching for programs in tape " + tape + "...");
+        List<Program> allPrograms = getPrograms();
+        return allPrograms.parallelStream().filter(p -> Arrays.stream(p.getTape().split("-")).anyMatch(tape::equals)).collect(Collectors.toList());
     }
 }

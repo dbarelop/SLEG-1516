@@ -13,4 +13,6 @@ public interface ProgramManager {
     Program getProgram(String name);
 
     List<Program> getPrograms();
+
+    List<Program> getPrograms(String tape);
 }
