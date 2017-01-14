@@ -1,38 +1,42 @@
 angular.module("Prac3SLEGApp.services").service("ProgramsService", function($q, $http) {
-    var service = {}, listener = $q.defer();
+    var service = {};
 
     service.getNumPrograms = function() {
+        var listener = $q.defer();
         $http.get('http://localhost:8080/programs/count').then(function(res) {
-            listener.notify(res.data);
+            listener.resolve(res.data);
         }, function(err) {
-            console.log(err);
+            listener.reject(err);
         });
         return listener.promise;
     };
 
     service.getPrograms = function() {
+        var listener = $q.defer();
         $http.get('http://localhost:8080/programs').then(function(res) {
-            listener.notify(res.data);
+            listener.resolve(res.data);
         }, function(err) {
-            console.log(err);
+            listener.reject(err);
         });
         return listener.promise;
     };
 
     service.getProgram = function(id) {
+        var listener = $q.defer();
         $http.get('http://localhost:8080/program/' + id).then(function(res) {
-            listener.notify(res.data);
+            listener.resolve(res.data);
         }, function(err) {
-            console.log(err);
+            listener.reject(err);
         });
         return listener.promise;
     };
 
     service.getProgramByName = function(name) {
+        var listener = $q.defer();
         $http.get('http://localhost:8080/program/name/' + name).then(function(res) {
-            listener.notify(res.data);
+            listener.resolve(res.data);
         }, function(err) {
-            console.log(err);
+            listener.reject(err);
         });
         return listener.promise;
     };
