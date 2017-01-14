@@ -2,7 +2,7 @@
 
 ## Objetivo 1: compilar y ejecutar el código inicial
 
-El compilador utilizado para desarrollar la práctica ha sido OpenCobol 1.1.0, por diversas razones:
+El compilador utilizado para desarrollar la práctica ha sido OpenCobol 1.1.0 (actualmente [GNUCobol](https://sourceforge.net/projects/open-cobol/)), por diversas razones:
 
 * Open Source (licencia LGPL)
 
@@ -10,7 +10,7 @@ El compilador utilizado para desarrollar la práctica ha sido OpenCobol 1.1.0, p
 
 * Sencilla integración con las herramientas de desarrollo de entornos UNIX (make)
 
-* ...
+* [Guía de programación](http://open-cobol.sourceforge.net/) y soportado por (más o menos amplia) comunidad online
 
 El código del programa está dividido en tres subprogramas:
 
