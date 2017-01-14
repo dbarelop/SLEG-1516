@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Sistemas Legados - Práctica 3</title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+
+    <script type="text/javascript" src="webjars/angular/1.6.0/angular.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/controllers.js"></script>
+    <script type="text/javascript" src="app/services.js"></script>
+</head>
+<body ng-app="Prac3SLEGApp" style="padding-top: 70px;">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="/">Sistemas Legados - P3</a></div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Search</a></li>
+                <li><a href="/list.html">List</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div ng-controller="ProgramsCtrl" class="container-full">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1>Program search</h1>
+            <h2 ng-if="numPrograms">Number of records in the database: {{numPrograms}}</h2>
+            <br />
+            <div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+                <input id="search-id" ng-model="programId" type="number" class="center-block form-control input-lg" placeholder="Program ID" />
+                <span class="input-group-btn">
+                    <button id="search-id-button" class="btn btn-lg btn-primary" type="button" ng-click="search()">Search</button>
+                </span>
+            </div>
+            <br />
+            <div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+                <input id="search-name" ng-model="programName" type="text" class="center-block form-control input-lg" placeholder="Program name" />
+                <span class="input-group-btn">
+                    <button id="search-name-button" class="btn btn-lg btn-primary" type="button" ng-click="searchByName()">Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="col-sm-offset-2 col-sm-8 text-center">
+                <div class="panel panel-default" ng-if="result">
+                    <div class="panel-heading">{{result.name}}</div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>ID:</strong> {{result.id}}</li>
+                            <li class="list-group-item"><strong>Name:</strong> {{result.name}}</li>
+                            <li class="list-group-item"><strong>Type:</strong> {{result.type}}</li>
+                            <li class="list-group-item"><strong>Tape:</strong> {{result.tape}}</li>
+                            <li class="list-group-item"><strong>Register:</strong> {{result.register}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
