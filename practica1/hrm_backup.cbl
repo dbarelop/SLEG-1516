@@ -407,12 +407,18 @@
              PERFORM UNTIL FSB = 10
                 MOVE 0 TO CNTR
                 MOVE 0 TO LBCITY-SPACES
-                INSPECT FUNCTION REVERSE (LBCITY)
-                    TALLYING LBCITY-SPACES FOR LEADING SPACES
-                SUBTRACT LBCITY-SPACES FROM 30 GIVING LBCITY-LEN
-                INSPECT BBRADD
-                    TALLYING CNTR FOR ALL LBCITY (1 : LBCITY-LEN)
-                IF CNTR > 0
+                IF LBCITY NOT = SPACE
+	                INSPECT FUNCTION REVERSE (LBCITY)
+	                    TALLYING LBCITY-SPACES 
+	                    FOR LEADING SPACES
+	                SUBTRACT LBCITY-SPACES 
+	                	FROM 30 GIVING LBCITY-LEN
+	                INSPECT BBRADD
+	                    TALLYING CNTR 
+	                    FOR ALL LBCITY (1 : LBCITY-LEN)
+                END-IF
+                IF (CNTR > 0 OR LBCITY = SPACE) AND 
+                	BBRID NOT = SPACE
                     DISPLAY " BRANCH CODE:    "
                         AT LINE LBLINE COL 1
                     DISPLAY BBRID
