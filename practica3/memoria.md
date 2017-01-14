@@ -20,7 +20,7 @@ Para encapsular el acceso a la aplicación legada se ha creado el servicio `Prog
 
 1. Cuando se instancia el servicio, se inicia el emulador con la aplicación legada: `dosbox msdos-database/gwbasic.bat -noconsole`.
 
-2. Una vez que el emulador está corriendo, el *wrapper* simula pulsaciones de teclado mediante la librería `java.awt.Robot`. Para ello, se debe llamar a las funciones de pulsación (`keyPress`) y liberación (`keyRelease`) para cada tecla que se quiere enviar al emulador. También hay que destacar que la ventana del emulador debe tener el foco cuando se está ejecutando el *wrapper*, o las pulsaciones irán a otra ventana.
+2. Una vez que el emulador está corriendo, el *wrapper* simula pulsaciones de teclado mediante la librería `java.awt.Robot`. Para ello, se debe llamar a las funciones de pulsación (`keyPress`) y liberación (`keyRelease`) para cada tecla que se quiere enviar al emulador. También hay que destacar que la ventana del emulador debe tener el foco cuando se está ejecutando el *wrapper*, o las pulsaciones irán a otra ventana. Por esta razón se ha incluído una espera de 2 segundos en el controlador `ProgramController` para poder cambiar el foco del navegador a la ventana del emulador cuando se ejecutan en la misma máquina.
 
 3. Para la lectura de resultados del emulador se deben realizar dos acciones:
 
