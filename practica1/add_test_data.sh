@@ -6,7 +6,7 @@ spawn ./hrm_backup
 expect "ENTER YOUR CHOICE"
 send "1\n"
 expect "ENTER U R CHOICE"
-for {set i 0} {$i < 5} {incr i 1} {
+for {set i 0} {$i < 50} {incr i 1} {
     send "03\n"
     expect "ENTER BRANCH CODE"
     send "$i\n"
