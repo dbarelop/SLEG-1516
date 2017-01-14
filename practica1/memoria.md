@@ -70,9 +70,48 @@ IF FSO <> 00
 
 Con esta modificación se consigue crear ficheros .DAT correctamente, y se comprueba que la lectura también funciona correctamente.
 
+## Objetivo 2: Añadir funcionalidad `LIST BRANCH FILE`
 
+Se requiere añadir una nueva funcionalidad para listar sucursales, con posibilidad de filtrar por el nombre de la ciudad.
 
+En el registro de sucursales (`BRANCHREC`) no está declarado explícitamente un campo para la ciudad, así que se asume que la ciudad está en una parte del campo de la dirección (`BBRADD`). Para acceder a la nueva funcionalidad, se añade una opción nueva al menú de lectura: `03. LIST BRANCH FILE`.
 
+El fichero de sucursales (`BRANCHFILE`) es un fichero de acceso dinámico. Esto significa que se pueden leer los registros de la siguiente manera:
 
+```cobol
+LIST-BRANCH-PARA.
+  OPEN INPUT BRANCHFILE.
+  PERFORM UNTIL FSB = 10
+    *> Mostrar los campos
+    READ BRANCHFILE NEXT RECORD
+      AT END GO TO LIST-BRANCH-EXIT-PARA
+  END-PERFORM.
+LIST-BRANCH-EXIT-PARA.
+  CLOSE BRANCHFILE.
+```
 
+El filtrado por ciudad (substring del campo donde se guarda la dirección, `BBRADD`), se implementa de la siguiente manera:
 
+```cobol
+*> LBCITY contiene el nombre de la ciudad a filtrar (30 caracteres, con espacios en los caracteres restantes)
+IF LBCITY NOT = SPACE
+  *> 1. Obtener el número de espacios en la variable LBCITY
+  INSPECT FUNCTION REVERSE (LBCITY)
+    TALLYING LBCITY-SPACES
+    FOR LEADING SPACES
+  *> 2. Obtener la longitud de la variable LBCITY (LBCITY-LEN = 30 - LBCITY-SPACES)
+  SUBTRACT LBCITY-SPACES
+    FROM 30 GIVING LBCITY-LEN
+  *> 3. Obtener el número de ocurrencias de la cadena LBCITY en el campo BBRADD
+  INSPECT BBRADD
+    TALLYING CNTR
+    FOR ALL LBCITY (1 : LBCITY-LEN)
+END-IF
+IF CNTR > 0 OR LBCITY = SPACE
+  *> Mostrar los campos
+END-IF
+```
+
+## Objetivo 3: Inserción de datos de prueba (versión automatizada)
+
+Para insertar rápidamente registros de prueba en la aplicación se ha creado el script [`expect`](http://expect.sourceforge.net/) [add_test_data.sh](https://github.com/dbarelop/SLEG-1516/blob/master/practica1/add_test_data.sh), que se encarga de lanzar la aplicación y realizar la inserción de un número determinado de registros de sucursal diferentes.
