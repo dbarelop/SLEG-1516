@@ -55,4 +55,4 @@ private enum X3270TerminalState {
 }
 ```
 
-
+**NOTA:** Se ha detectado que el programa `tareas.c` en el mainframe no se comporta como debería al añadir más de una tarea específica; si solamente se añade una después la muestra correctamente, pero si se añaden más los campos aparecen mezclados.
