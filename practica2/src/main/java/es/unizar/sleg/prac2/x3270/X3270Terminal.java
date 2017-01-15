@@ -1,5 +1,6 @@
 package es.unizar.sleg.prac2.x3270;
 
+import es.unizar.sleg.prac2.exception.AuthenticationException;
 import es.unizar.sleg.prac2.task.GeneralTask;
 import es.unizar.sleg.prac2.task.SpecificTask;
 
@@ -77,7 +78,8 @@ public class X3270Terminal {
                 return false;
             }
         } else {
-            return false;
+            // Already connected
+            return true;
         }
     }
 
@@ -86,7 +88,7 @@ public class X3270Terminal {
         state = X3270TerminalState.DISCONNECTED;
     }
 
-    public boolean login(String username, String password) throws IOException, InterruptedException {
+    public void login(String username, String password) throws IOException, InterruptedException, AuthenticationException {
         if (state == X3270TerminalState.CONNECTED_SCREEN) {
             executeCommand("Enter");
             state = X3270TerminalState.LOGIN_SCREEN;
@@ -100,12 +102,11 @@ public class X3270Terminal {
             if (snap.contains("Userid is not authorized")) {
                 // Clear the username field
                 executeCommand("EraseEOF");
+                throw new AuthenticationException("Unauthorized");
             } else if (snap.contains("Userid last signed on")) {
                 state = X3270TerminalState.LOGGED_IN_SCREEN;
-                return true;
             }
         }
-        return false;
     }
 
     public boolean startLegacyApplication() throws IOException, InterruptedException {

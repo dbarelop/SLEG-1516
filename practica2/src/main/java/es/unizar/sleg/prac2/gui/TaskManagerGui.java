@@ -1,6 +1,7 @@
 package es.unizar.sleg.prac2.gui;
 
 import com.sun.java.swing.ui.StatusBar;
+import es.unizar.sleg.prac2.exception.AuthenticationException;
 import es.unizar.sleg.prac2.task.GeneralTask;
 import es.unizar.sleg.prac2.task.SpecificTask;
 import es.unizar.sleg.prac2.x3270.X3270Terminal;
@@ -122,13 +123,18 @@ public class TaskManagerGui extends JFrame {
                         disconnectMenuItem.setEnabled(true);
                         refreshButton.setEnabled(true);
                         newTaskButton.setEnabled(true);
-                        statusBar.setMessage("Ready");
                     } else {
                         connectMenuItem.setEnabled(true);
-                        JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Error trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
                     }
+                } catch (AuthenticationException e) {
+                    connectMenuItem.setEnabled(true);
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (IOException | InterruptedException e1) {
-                    JOptionPane.showMessageDialog(null, "There was an error when trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
+                    connectMenuItem.setEnabled(true);
+                    JOptionPane.showMessageDialog(null, "Error trying to connect to the mainframe", "Error", JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    statusBar.setMessage("Ready");
                 }
             }).start();
         }
