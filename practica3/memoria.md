@@ -88,10 +88,10 @@ cycles = max
 
 Tras programar el comportamiento descrito anteriormente, se comprobó que con los datos de entrenamiento iniciales (incluídos con el guión de la práctica) no se reconocían correctamente muchos de los caracteres, haciendo imposible el *parseado* de las capturas de pantalla para crear objetos Java (la tasa de error en algunos de los menús era mayor del 10%).
 
-Para mejorar los datos de entrenamiento se usó el programa [MzTesseract](https://github.com/mazluta/MzTesseract/wiki) sobre Windows para corregir los ficheros .box generados (existen [otras aplicaciones](https://github.com/tesseract-ocr/tesseract/wiki/AddOns) para este propósito, pero MzTesseract era la que mejor funcionaba) y un [script](https://github.com/dbarelop/SLEG-1516/blob/master/practica3/training/train.sh) sobre Linux para generar los datos de entrenamiento (fichero .traineddata).
+Para mejorar los datos de entrenamiento se usó el programa [MzTesseract](https://github.com/mazluta/MzTesseract/wiki) sobre Windows para corregir los ficheros .box generados (existen [otras aplicaciones](https://github.com/tesseract-ocr/tesseract/wiki/AddOns) para este propósito, pero MzTesseract era la que mejor funcionaba) y un [script](training/train.sh) sobre Linux para generar los datos de entrenamiento (fichero .traineddata).
 
 Tras 7 iteraciones del proceso de entrenamiento con capturas de pantallas diferentes, se consiguió mejorar la tasa de fallo en el reconocimiento del menú principal del 6.0% (con los datos de entrenamientos iniciales) a menos del 0.70%:
 
-![Error para cada iteración del entrenamiento](https://github.com/dbarelop/SLEG-1516/blob/master/practica3/img/tesseract_error.png)
+![Error para cada iteración del entrenamiento](img/tesseract_error.png)
 
 Aún así, algunos caracteres se confunden a aplicar el reconocimiento de caracteres (por ejemplo, el número `7` en algunos menús se confunde siempre con el caracter `?`). Este comportamiento no se ha podido corregir, pero ocurre solamente con unos pocos caracteres, por lo que se puede programar para realizar la sustitución cuando haya duda en algún caracter problemático.
