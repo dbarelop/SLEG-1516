@@ -182,16 +182,22 @@ La diferencia entre el fichero parcheado y el original (`objdump`):
 
 ## Parte optativa
 
-TODO: acabar
+Encontrar el software necesario para leer el fichero `SB.TXT` ha sido complicado; muchas páginas están caídas hoy en día y ni los drivers ni el software TextAssist están disponibles en ninguna página oficial. Para la búsqueda de información y recursos ha sido muy útil la plataforma [Wayback Machine](https://web-beta.archive.org/), que mantiene backups cada cierto tiempo muchas páginas, incluyendo algunas páginas desde antes de 1998.
 
+Por suerte, se ha encontrado la [página oficial de Jake Gross](http://grossgang.com/), en la que hay subidas imágenes de máquinas virtuales VMWare de diferentes versiones de Windows. En concreto, la de Windows 95 ([http://grossgang.com/vmware/Windows%2095.exe](http://grossgang.com/vmware/Windows%2095.exe)) es de especial utilidad porque *tiene preinstalados todos los drivers y el software necesario* para correr TextAssist.
 
+Para ejecutar la máquina virtual es necesario usar [VMWare Workstation Player](http://www.vmware.com/products/player/playerpro-evaluation.html) sobre Windows o Linux (con VMWare Fusion sobre macOS el audio de la máquina virtual no funciona).
 
+Sin embargo, no tiene instalado el idioma español, por lo que no consigue reproducir el fichero.
 
+Se ha encontrado otro software, [FonixTalk Speak](http://www.speechfxinc.com/fonixtalk.html) que tiene instalado el idioma español y consigue reproducir la canción. Ha habido que corregir el fichero `SB.TXT`:
 
+* Eliminar línea de idioma
 
+* Reemplazar ', ' por ','
 
+* Reemplazar 'rx' por 'r'
 
+* Reemplazar 'sx' por 's'
 
-
-
-
+El audio de la canción reproduciéndose se puede descargar en [este enlace](cancion.mp3).
